@@ -6,16 +6,15 @@ public class Vehicle {
             "Motocicleta 1",
             "Motocicleta 2",
             "Motocicleta 3",
-            "Vehículo estándar 1",
-            "Vehículo estándar 2",
-            "Vehículo estándar 3",
+            "Vehículo estandar 1",
+            "Vehículo estandar 2",
+            "Vehículo estandar 3",
             "Vehículo premium 1",
             "Vehículo premium 2",
             "Vehículo premium 3",
     };
 
     public Vehicle(){}
-
 
     public String[] getVehicles(){
         return vehicles;
