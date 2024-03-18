@@ -1,5 +1,7 @@
 package com.marcosbonifasi.views;
 
+import com.marcosbonifasi.views.routes.RoutesIndexView;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -105,7 +107,15 @@ public class DashboardView extends JFrame implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        
+        if(e.getSource() == panelCardTrips) {
+            RoutesIndexView routesIndexView = new RoutesIndexView();
+            routesIndexView.setVisible(true);
+
+        }else if(e.getSource() == panelCardHistory) {
+
+        }else if(e.getSource() == panelCardRoutes) {
+
+        }
     }
 
     @Override
