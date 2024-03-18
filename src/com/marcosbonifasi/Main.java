@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Main {
 
     private static ArrayList<Route> routes = new ArrayList<Route>();
+    private static int counterRoutes = 0;
 
     public static void main(String[] args) {
         DashboardView dashboardView = new DashboardView();
@@ -21,6 +22,22 @@ public class Main {
 
     public static ArrayList<Route> getRoutes(){
         return routes;
+    }
+
+    public static int generateId(String option){
+        int id = 0;
+        switch (option){
+            case "route":
+                id = counterRoutes + 1;
+                counterRoutes++;
+                break;
+        }
+
+        return id;
+    }
+
+    public static void addRoute(Route route){
+        routes.add(route);
     }
 
     public static void resizeColumnWidth(JTable table) {

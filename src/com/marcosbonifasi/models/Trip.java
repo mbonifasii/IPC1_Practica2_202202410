@@ -1,19 +1,18 @@
 package com.marcosbonifasi.models;
 
-import java.lang.invoke.VarHandle;
-
 public class Trip {
 
     private int id;
     private Vehicle vehicle;
-    private String startingPoint, finalPoint;
+    private String startingPoint, finalPoint, status;
 
     public Trip(){}
-    public Trip(int id, Vehicle vehicle, String startingPoint, String finalPoint){
+    public Trip(int id, Vehicle vehicle, String startingPoint, String finalPoint, String status){
         this.id = id;
         this.vehicle = vehicle;
         this.startingPoint = startingPoint;
         this.finalPoint = finalPoint;
+        this.status = status;
     }
 
     public int getId() {
@@ -46,5 +45,13 @@ public class Trip {
 
     public void setFinalPoint(String finalPoint) {
         this.finalPoint = finalPoint;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

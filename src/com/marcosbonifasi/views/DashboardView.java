@@ -110,6 +110,7 @@ public class DashboardView extends JFrame implements MouseListener {
         if(e.getSource() == panelCardTrips) {
             RoutesIndexView routesIndexView = new RoutesIndexView();
             routesIndexView.setVisible(true);
+            dispose();
 
         }else if(e.getSource() == panelCardHistory) {
 
