@@ -24,8 +24,30 @@ public class RoutesController {
         this.route.setDistance(distance);
     }
 
-    private void load(int id){
+    public boolean found(){
+        return !Integer.toString(this.route.getId()).isEmpty();
+    }
 
+    private void load(int id){
+        int[] existence = validateExistence(id);
+
+        if(existence[0] == 1)
+            this.route = Main.getRoutes().get(existence[1]);
+    }
+
+    public int[] validateExistence(int id){
+        int[] existence = new int[2];
+
+        // Find the doctor according to the code
+        for (int i = 0; i < Main.getRoutes().size(); i++) {
+            if(Main.getRoutes().get(i).getId() == id){
+                existence[0] = 1;
+                existence[1] = i;
+                break;
+            }
+        }
+
+        return existence;
     }
 
     public void create(){
@@ -46,6 +68,8 @@ public class RoutesController {
         return routesArr;
     }
 
-
+    public void update(int distance){
+        this.route.setDistance(distance);
+    }
 
 }

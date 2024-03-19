@@ -1,6 +1,7 @@
 package com.marcosbonifasi.views;
 
 import com.marcosbonifasi.views.routes.RoutesIndexView;
+import com.marcosbonifasi.views.trips.TripsTrackingView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +34,7 @@ public class DashboardView extends JFrame implements MouseListener {
     private void initDashboardPanel(){
         panelDashboard = new JPanel();
         panelDashboard.setBounds(0, 0, 800, 600);
-        panelDashboard.setBackground(Color.decode("#FFFFFF"));
+        panelDashboard.setBackground(Color.decode("#F5F3F4"));
         panelDashboard.setLayout(null);
 
         getContentPane().add(panelDashboard);
@@ -108,14 +109,16 @@ public class DashboardView extends JFrame implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getSource() == panelCardTrips) {
-            RoutesIndexView routesIndexView = new RoutesIndexView();
-            routesIndexView.setVisible(true);
+            TripsTrackingView tripsTrackingView = new TripsTrackingView();
+            tripsTrackingView.setVisible(true);
             dispose();
 
         }else if(e.getSource() == panelCardHistory) {
 
         }else if(e.getSource() == panelCardRoutes) {
-
+            RoutesIndexView routesIndexView = new RoutesIndexView();
+            routesIndexView.setVisible(true);
+            dispose();
         }
     }
 

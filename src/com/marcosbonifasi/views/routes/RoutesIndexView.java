@@ -2,6 +2,7 @@ package com.marcosbonifasi.views.routes;
 
 import com.marcosbonifasi.Main;
 import com.marcosbonifasi.controllers.RoutesController;
+import com.marcosbonifasi.views.DashboardView;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -21,6 +22,7 @@ public class RoutesIndexView extends JFrame implements MouseListener {
     private DefaultTableModel routesModel;
     private JFileChooser fileChooser;
     private File fileSelected;
+    private JLabel closeLabel;
 
     public RoutesIndexView(){
         setSize(700, 500);
@@ -35,15 +37,22 @@ public class RoutesIndexView extends JFrame implements MouseListener {
     public void initRoutesPanel(){
         panelRoutes = new JPanel();
         panelRoutes.setBounds(0, 0, 800, 600);
-        panelRoutes.setBackground(Color.decode("#FFFFFF"));
+        panelRoutes.setBackground(Color.decode("#F5F3F4"));
         panelRoutes.setLayout(null);
 
         getContentPane().add(panelRoutes);
 
 
         // Components
+        JLabel labelRoutesListing = new JLabel("Listado rutas");
+        labelRoutesListing.setBounds(50, 60, 150, 30);
+        labelRoutesListing.setOpaque(true);
+        labelRoutesListing.setFont(new Font(labelRoutesListing.getFont().getFontName(), Font.PLAIN, 18));
+        labelRoutesListing.setVisible(true);
+        panelRoutes.add(labelRoutesListing);
+
         btnLoadRoutes = new JButton("Cargar rutas (csv)");
-        btnLoadRoutes.setBounds(50, 50, 170, 30);
+        btnLoadRoutes.setBounds(480, 60, 170, 30);
         btnLoadRoutes.setBackground(new Color(163, 196, 243));
         btnLoadRoutes.setForeground(Color.white);
         btnLoadRoutes.setFont(new Font(btnLoadRoutes.getFont().getFontName(), Font.BOLD, 13));
@@ -53,7 +62,7 @@ public class RoutesIndexView extends JFrame implements MouseListener {
         panelRoutes.add(btnLoadRoutes);
 
         btnEditRoute = new JButton("Editar distancia");
-        btnEditRoute.setBounds(500, 50, 150, 30);
+        btnEditRoute.setBounds(500, 100, 150, 30);
         btnEditRoute.setBackground(new Color(144, 219, 244));
         btnEditRoute.setForeground(Color.white);
         btnEditRoute.setFont(new Font(btnEditRoute.getFont().getFontName(), Font.BOLD, 13));
@@ -81,10 +90,21 @@ public class RoutesIndexView extends JFrame implements MouseListener {
         Main.resizeColumnWidth(routesTable);
 
         JScrollPane sp1 = new JScrollPane(routesTable);
-        sp1.setBounds(50, 150, 600, 250);
+        sp1.setBounds(50, 160, 600, 250);
         sp1.setVisible(true);
         panelRoutes.add(sp1);
 
+        // Carga la imagen
+        ImageIcon closeIcon = new ImageIcon(getClass().getResource("../../images/close.png"));
+        // Ajusta el tamaño de la imagen (puedes cambiar los valores según tus necesidades)
+        Image imageDimension = closeIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        // Crea un nuevo ImageIcon con la imagen ajustada
+        ImageIcon adjustedImageIcon = new ImageIcon(imageDimension);
+        // Crea un JLabel para mostrar la imagen
+        closeLabel = new JLabel(adjustedImageIcon);
+        closeLabel.setBounds(630, 10, 20, 20); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
+        closeLabel.addMouseListener(this);
+        panelRoutes.add(closeLabel);
 
         panelRoutes.setVisible(true);
     }
@@ -163,6 +183,14 @@ public class RoutesIndexView extends JFrame implements MouseListener {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+        } else if (e.getSource() == btnEditRoute) {
+            RouteEditView routeEditView = new RouteEditView();
+            routeEditView.setVisible(true);
+            dispose();
+        } else if (e.getSource() == closeLabel) {
+            DashboardView dashboardView = new DashboardView();
+            dashboardView.setVisible(true);
+            dispose();
         }
     }
 
