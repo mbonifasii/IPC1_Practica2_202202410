@@ -4,6 +4,7 @@ import com.marcosbonifasi.Main;
 import com.marcosbonifasi.views.DashboardView;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,6 +16,9 @@ public class TripsTrackingView extends JFrame implements MouseListener {
     private JLabel labelInitialPointInfo1;
     private JLabel labelFinalPointInfo1;
     private JLabel labelCurrentInfo1;
+    private JLabel labelVehicle1;
+    private JLabel labelVehicle2;
+    private JLabel labelVehicle3;
     private JLabel labelInitialPointInfo2;
     private JLabel labelFinalPointInfo2;
     private JLabel labelCurrentInfo2;
@@ -32,6 +36,12 @@ public class TripsTrackingView extends JFrame implements MouseListener {
     private JButton btnReturn1;
     private JButton btnReturn2;
     private JButton btnReturn3;
+    private Rectangle vehicle1;
+    private Rectangle vehicle2;
+    private Rectangle vehicle3;
+    private JLabel highway1;
+    private JLabel highway2;
+    private JLabel highway3;
 
     public TripsTrackingView(){
         setSize(800, 620);
@@ -82,7 +92,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         // Crea un nuevo ImageIcon con la imagen ajustada
         ImageIcon adjustedImageHighwayIcon = new ImageIcon(imageDimensionHighway);
         // Crea un JLabel para mostrar la imagen
-        JLabel highway1 = new JLabel(adjustedImageHighwayIcon);
+        highway1 = new JLabel(adjustedImageHighwayIcon);
         highway1.setBounds(50, 120, 700, 80); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
         highway1.addMouseListener(this);
         tripTrackingPanel.add(highway1);
@@ -115,7 +125,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         // Crea un nuevo ImageIcon con la imagen ajustada
         ImageIcon adjustedImageHighway2Icon = new ImageIcon(imageDimensionHighway2);
         // Crea un JLabel para mostrar la imagen
-        JLabel highway2 = new JLabel(adjustedImageHighway2Icon);
+        highway2 = new JLabel(adjustedImageHighway2Icon);
         highway2.setBounds(50, 280, 700, 80); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
         highway2.addMouseListener(this);
         tripTrackingPanel.add(highway2);
@@ -148,7 +158,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         // Crea un nuevo ImageIcon con la imagen ajustada
         ImageIcon adjustedImageHighway3Icon = new ImageIcon(imageDimensionHighway3);
         // Crea un JLabel para mostrar la imagen
-        JLabel highway3 = new JLabel(adjustedImageHighway3Icon);
+        highway3 = new JLabel(adjustedImageHighway3Icon);
         highway3.setBounds(50, 450, 700, 80); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
         highway3.addMouseListener(this);
         tripTrackingPanel.add(highway3);
@@ -224,6 +234,23 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             labelFinalPointInfo1.setFont(new Font(labelFinalPointInfo1.getFont().getFontName(), Font.PLAIN, 10));
             labelFinalPointInfo1.setVisible(true);
             tripTrackingPanel.add(labelFinalPointInfo1);
+
+            labelVehicle1 = new JLabel();
+            labelVehicle1.setBounds(600, 30, 100, 50); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
+            ImageIcon img1 = new ImageIcon(
+                getClass().getResource("../../images/" + selectedImageVehicle(Main.getOnGoingTrips()[0].getVehicle().getName()))
+            );
+            Image nuevo1 = img1.getImage().getScaledInstance(100, 80, Image.SCALE_DEFAULT);
+            labelVehicle1.setHorizontalAlignment(SwingConstants.CENTER);
+            labelVehicle1.setVerticalAlignment(SwingConstants.CENTER);
+            ImageIcon render = new ImageIcon(nuevo1);
+            labelVehicle1.setIcon(render);
+            labelVehicle1.setVisible(true);
+            vehicle1 = labelVehicle1.getBounds();
+            Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
+            labelVehicle1.setBorder(border);
+            highway1.add(labelVehicle1);
+
         } else {
             btnInitDriver1.setEnabled(false);
             btnReturn1.setEnabled(false);
@@ -258,6 +285,22 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             labelFinalPointInfo2.setFont(new Font(labelFinalPointInfo2.getFont().getFontName(), Font.PLAIN, 10));
             labelFinalPointInfo2.setVisible(true);
             tripTrackingPanel.add(labelFinalPointInfo2);
+
+            labelVehicle2 = new JLabel();
+            labelVehicle2.setBounds(600, 30, 100, 50); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
+            ImageIcon img2 = new ImageIcon(
+                    getClass().getResource("../../images/" + selectedImageVehicle(Main.getOnGoingTrips()[2].getVehicle().getName()))
+            );
+            Image nuevo2 = img2.getImage().getScaledInstance(100, 80, Image.SCALE_DEFAULT);
+            labelVehicle2.setHorizontalAlignment(SwingConstants.CENTER);
+            labelVehicle2.setVerticalAlignment(SwingConstants.CENTER);
+            ImageIcon render = new ImageIcon(nuevo2);
+            labelVehicle2.setIcon(render);
+            labelVehicle2.setVisible(true);
+            vehicle2 = labelVehicle2.getBounds();
+            Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
+            labelVehicle2.setBorder(border);
+            highway2.add(labelVehicle2);
         } else {
             btnInitDriver2.setEnabled(false);
             btnReturn2.setEnabled(false);
@@ -292,10 +335,40 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             labelFinalPointInfo3.setFont(new Font(labelFinalPointInfo3.getFont().getFontName(), Font.PLAIN, 10));
             labelFinalPointInfo3.setVisible(true);
             tripTrackingPanel.add(labelFinalPointInfo3);
+
+            labelVehicle3 = new JLabel();
+            labelVehicle3.setBounds(600, 30, 100, 50); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
+            ImageIcon img3 = new ImageIcon(
+                    getClass().getResource("../../images/" + selectedImageVehicle(Main.getOnGoingTrips()[2].getVehicle().getName()))
+            );
+            Image nuevo3 = img3.getImage().getScaledInstance(100, 80, Image.SCALE_DEFAULT);
+            labelVehicle3.setHorizontalAlignment(SwingConstants.CENTER);
+            labelVehicle3.setVerticalAlignment(SwingConstants.CENTER);
+            ImageIcon render = new ImageIcon(nuevo3);
+            labelVehicle3.setIcon(render);
+            labelVehicle3.setVisible(true);
+            vehicle3 = labelVehicle3.getBounds();
+            Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
+            labelVehicle3.setBorder(border);
+            highway3.add(labelVehicle3);
         } else {
             btnInitDriver3.setEnabled(false);
             btnReturn3.setEnabled(false);
         }
+    }
+
+    private String selectedImageVehicle(String vehicle){
+        String imageName = "";
+
+        if(vehicle.equals("Motocicleta 1") || vehicle.equals("Motocicleta 2") || vehicle.equals("Motocicleta 3")){
+            imageName = "motorcicle.png";
+        }else if(vehicle.equals("Vehiculo estandar 1") || vehicle.equals("Vehiculo estandar 2") || vehicle.equals("Vehiculo estandar 3")){
+            imageName = "standard_car.png";
+        } else if(vehicle.equals("Vehiculo premium 1") || vehicle.equals("Vehiculo premium 2") || vehicle.equals("Vehiculo premium 3")) {
+            imageName = "premium_car.png";
+        }
+
+        return imageName;
     }
 
     @Override
@@ -330,5 +403,18 @@ public class TripsTrackingView extends JFrame implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    class BackgroundImage extends JPanel {
+
+        private Image imagen;
+
+        @Override
+        public void paint(Graphics g) {
+            imagen = new ImageIcon(getClass().getResource("../imgs/fondo.gif")).getImage();
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
     }
 }

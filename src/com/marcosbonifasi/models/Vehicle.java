@@ -7,12 +7,12 @@ public class Vehicle {
             "Motocicleta 1",
             "Motocicleta 2",
             "Motocicleta 3",
-            "Vehículo estandar 1",
-            "Vehículo estandar 2",
-            "Vehículo estandar 3",
-            "Vehículo premium 1",
-            "Vehículo premium 2",
-            "Vehículo premium 3",
+            "Vehiculo estandar 1",
+            "Vehiculo estandar 2",
+            "Vehiculo estandar 3",
+            "Vehiculo premium 1",
+            "Vehiculo premium 2",
+            "Vehiculo premium 3",
     };
 
     public Vehicle(){}
