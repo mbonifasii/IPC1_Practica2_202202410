@@ -1,6 +1,7 @@
 package com.marcosbonifasi;
 
 
+import com.marcosbonifasi.models.History;
 import com.marcosbonifasi.models.Route;
 import com.marcosbonifasi.models.Trip;
 import com.marcosbonifasi.views.DashboardView;
@@ -14,8 +15,11 @@ import java.util.ArrayList;
 public class Main {
 
     private static ArrayList<Route> routes = new ArrayList<Route>();
-    private static ArrayList<Trip> currentTrips = new ArrayList<Trip>();
+    private static ArrayList<Trip> trips = new ArrayList<Trip>();
+    private static ArrayList<History> histories = new ArrayList<History>();
+    private static Trip[] onGoingTrips = new Trip[3];
     private static int counterRoutes = 0;
+    private static int counterTrips = 0;
 
     public static void main(String[] args) {
         DashboardView dashboardView = new DashboardView();
@@ -33,6 +37,10 @@ public class Main {
                 id = counterRoutes + 1;
                 counterRoutes++;
                 break;
+            case "trip":
+                id = counterTrips + 1;
+                counterTrips++;
+                break;
         }
 
         return id;
@@ -40,6 +48,22 @@ public class Main {
 
     public static void addRoute(Route route){
         routes.add(route);
+    }
+    public static void addTrip(Trip trip){
+        trips.add(trip);
+    }
+    public static void addHistory(History history){
+        histories.add(history);
+    }
+
+    public static void addTripToQueue(Trip trip){
+        for (int i = 0; i < onGoingTrips.length; i++) {
+            if(onGoingTrips[i] == null){
+                System.out.println("New trip added");
+                onGoingTrips[i] = trip;
+                break;
+            }
+        }
     }
 
     public static void resizeColumnWidth(JTable table) {
@@ -56,5 +80,19 @@ public class Main {
             }
             columnModel.getColumn(column).setPreferredWidth(width);
         }
+    }
+
+    public static boolean driversAvailable(){
+        System.out.println(onGoingTrips[0] == null || onGoingTrips[1] == null || onGoingTrips[2] == null);
+        return onGoingTrips[0] == null || onGoingTrips[1] == null || onGoingTrips[2] == null;
+    }
+
+    public static boolean anyTripOnGoing(){
+        System.out.println(onGoingTrips[0] != null || onGoingTrips[1] != null || onGoingTrips[2] != null);
+        return onGoingTrips[0] != null || onGoingTrips[1] != null || onGoingTrips[2] != null;
+    }
+
+    public static Trip[] getOnGoingTrips(){
+        return onGoingTrips;
     }
 }

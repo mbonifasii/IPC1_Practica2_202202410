@@ -1,7 +1,11 @@
 package com.marcosbonifasi.views.trips;
 
+import com.marcosbonifasi.Main;
+import com.marcosbonifasi.controllers.HistoriesController;
 import com.marcosbonifasi.controllers.RoutesController;
+import com.marcosbonifasi.controllers.TripsController;
 import com.marcosbonifasi.controllers.VehiclesController;
+import com.marcosbonifasi.models.Vehicle;
 import com.marcosbonifasi.views.DashboardView;
 
 import javax.swing.*;
@@ -10,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.time.LocalDateTime;
 
 public class TripsGenerateTripView extends JFrame implements MouseListener {
 
@@ -122,9 +127,12 @@ public class TripsGenerateTripView extends JFrame implements MouseListener {
         labelNoDriversAvailable.setBounds(150, 310, 200, 30);
         labelNoDriversAvailable.setForeground(Color.red);
         labelNoDriversAvailable.setFont(new Font(labelNoDriversAvailable.getFont().getFontName(), Font.PLAIN, 12));
-        labelNoDriversAvailable.setVisible(true);
+        labelNoDriversAvailable.setVisible(false);
+        btnGenerateTrip.setEnabled(false);
+        if(Main.driversAvailable()){
+            labelNoDriversAvailable.setVisible(true);
+        }
         generatePanelTrip.add(labelNoDriversAvailable);
-
 
 
         // Carga la imagen
@@ -146,7 +154,32 @@ public class TripsGenerateTripView extends JFrame implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(false){
+        if(e.getSource() == btnGenerateTrip){
+            Vehicle vehicle = new Vehicle(selectedVehicle);
+
+            TripsController tripsController = new TripsController();
+            tripsController.create(
+                    Main.generateId("trip"),
+                    vehicle,
+                    selectedStartingPoint,
+                    selectedFinalPoint,
+                    "En curso"
+            );
+
+            HistoriesController historiesController = new HistoriesController();
+            historiesController.create(
+                    tripsController.getTrip(),
+                    LocalDateTime.now().toString(),
+                    "",
+                    0,
+                    0
+            );
+
+            Main.addTripToQueue(tripsController.getTrip());
+
+            TripsTrackingView tripsTrackingView = new TripsTrackingView();
+            tripsTrackingView.setVisible(true);
+            dispose();
 
         }else if (e.getSource() == closeLabel) {
             TripsTrackingView tripsTrackingView = new TripsTrackingView();

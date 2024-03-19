@@ -1,5 +1,6 @@
 package com.marcosbonifasi.views.trips;
 
+import com.marcosbonifasi.Main;
 import com.marcosbonifasi.views.DashboardView;
 
 import javax.swing.*;
@@ -11,6 +12,15 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
     private JPanel tripTrackingPanel;
     private JLabel closeLabel;
+    private JLabel labelInitialPointInfo1;
+    private JLabel labelFinalPointInfo1;
+    private JLabel labelCurrentInfo1;
+    private JLabel labelInitialPointInfo2;
+    private JLabel labelFinalPointInfo2;
+    private JLabel labelCurrentInfo2;
+    private JLabel labelInitialPointInfo3;
+    private JLabel labelFinalPointInfo3;
+    private JLabel labelCurrentInfo3;
     private JButton btnGenerateTrip;
     private JButton btnInitAllDrivers;
     private JButton btnInitDriver1;
@@ -31,6 +41,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         setResizable(false); // do not modify the size
 
         initTripTrackingPanel();
+        renderTrips();
     }
 
     private void initTripTrackingPanel(){
@@ -176,6 +187,115 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         tripTrackingPanel.add(closeLabel);
 
         tripTrackingPanel.setVisible(true);
+    }
+
+    private void renderTrips(){
+        if(!Main.anyTripOnGoing())
+            return;
+
+        System.out.println("Rendering");
+
+        // Render first trip
+        if(Main.getOnGoingTrips()[0] != null){
+            btnReturn1.setEnabled(false);
+
+            labelInitialPointInfo1 = new JLabel(
+                    "<html>" +
+                    Main.getOnGoingTrips()[0].getVehicle().getName()+
+                    "<br>" +
+                    "DISTANCIA" +
+                    "<br>" +
+                    "Destino " + Main.getOnGoingTrips()[0].getFinalPoint()+
+                    "</html>"
+            );
+
+            labelInitialPointInfo1.setBounds(50, 50, 150, 90);
+            labelInitialPointInfo1.setFont(new Font(labelInitialPointInfo1.getFont().getFontName(), Font.PLAIN, 10));
+            labelInitialPointInfo1.setVisible(true);
+            tripTrackingPanel.add(labelInitialPointInfo1);
+
+            labelFinalPointInfo1 = new JLabel(
+                    "<html>" +
+                    "Inicio " + Main.getOnGoingTrips()[0].getStartingPoint()+
+                    "</html>"
+            );
+
+            labelFinalPointInfo1.setBounds(650, 70, 150, 80);
+            labelFinalPointInfo1.setFont(new Font(labelFinalPointInfo1.getFont().getFontName(), Font.PLAIN, 10));
+            labelFinalPointInfo1.setVisible(true);
+            tripTrackingPanel.add(labelFinalPointInfo1);
+        } else {
+            btnInitDriver1.setEnabled(false);
+            btnReturn1.setEnabled(false);
+        }
+
+        // Render second trip
+        if(Main.getOnGoingTrips()[1] != null){
+            btnReturn2.setEnabled(false);
+
+            labelInitialPointInfo2 = new JLabel(
+                    "<html>" +
+                            Main.getOnGoingTrips()[1].getVehicle().getName()+
+                            "<br>" +
+                            "DISTANCIA" +
+                            "<br>" +
+                            "Destino " + Main.getOnGoingTrips()[1].getFinalPoint()+
+                            "</html>"
+            );
+
+            labelInitialPointInfo2.setBounds(50, 210, 150, 90);
+            labelInitialPointInfo2.setFont(new Font(labelInitialPointInfo2.getFont().getFontName(), Font.PLAIN, 10));
+            labelInitialPointInfo2.setVisible(true);
+            tripTrackingPanel.add(labelInitialPointInfo2);
+
+            labelFinalPointInfo2 = new JLabel(
+                    "<html>" +
+                            "Inicio " + Main.getOnGoingTrips()[1].getStartingPoint()+
+                            "</html>"
+            );
+
+            labelFinalPointInfo2.setBounds(650, 220, 150, 80);
+            labelFinalPointInfo2.setFont(new Font(labelFinalPointInfo2.getFont().getFontName(), Font.PLAIN, 10));
+            labelFinalPointInfo2.setVisible(true);
+            tripTrackingPanel.add(labelFinalPointInfo2);
+        } else {
+            btnInitDriver2.setEnabled(false);
+            btnReturn2.setEnabled(false);
+        }
+
+        // Render third trip
+        if(Main.getOnGoingTrips()[2] != null){
+            btnReturn3.setEnabled(false);
+
+            labelInitialPointInfo3 = new JLabel(
+                    "<html>" +
+                            Main.getOnGoingTrips()[2].getVehicle().getName()+
+                            "<br>" +
+                            "DISTANCIA" +
+                            "<br>" +
+                            "Destino " + Main.getOnGoingTrips()[2].getFinalPoint()+
+                            "</html>"
+            );
+
+            labelInitialPointInfo3.setBounds(50, 380, 150, 90);
+            labelInitialPointInfo3.setFont(new Font(labelInitialPointInfo3.getFont().getFontName(), Font.PLAIN, 10));
+            labelInitialPointInfo3.setVisible(true);
+            tripTrackingPanel.add(labelInitialPointInfo3);
+
+            labelFinalPointInfo3= new JLabel(
+                    "<html>" +
+                            "Inicio " + Main.getOnGoingTrips()[2].getStartingPoint()+
+                            "</html>"
+            );
+
+            labelFinalPointInfo3.setBounds(630, 395, 150, 80);
+            labelFinalPointInfo3.setFont(new Font(labelFinalPointInfo3.getFont().getFontName(), Font.PLAIN, 10));
+            labelFinalPointInfo3.setVisible(true);
+            tripTrackingPanel.add(labelFinalPointInfo3);
+        } else {
+            btnInitDriver3.setEnabled(false);
+            btnReturn3.setEnabled(false);
+        }
     }
 
     @Override

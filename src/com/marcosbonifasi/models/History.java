@@ -1,28 +1,18 @@
 package com.marcosbonifasi.models;
 
-public class History {
+public class History extends Trip{
 
-    private int id, distance, gasolineConsumed;
+    private int distance, gasolineConsumed;
     private String initialDatetime, finalDatetime;
-    private Vehicle vehicle;
 
     public History(){}
 
-    public History(int id, String initialDatetime, String finalDatetime, Vehicle vehicle, int distance, int gasolineConsumed){
-        this.id = id;
+    public History(Trip trip, String initialDatetime, String finalDatetime, int distance, int gasolineConsumed){
+        super(trip.getId(), trip.getVehicle(), trip.getStartingPoint(), trip.getFinalPoint(), trip.getStatus());
         this.initialDatetime = initialDatetime;
         this.finalDatetime = finalDatetime;
-        this.vehicle = vehicle;
         this.distance = distance;
         this.gasolineConsumed = gasolineConsumed;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getDistance() {
@@ -55,13 +45,5 @@ public class History {
 
     public void setFinalDatetime(String finalDatetime) {
         this.finalDatetime = finalDatetime;
-    }
-
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
-
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
     }
 }

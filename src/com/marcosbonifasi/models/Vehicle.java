@@ -2,6 +2,7 @@ package com.marcosbonifasi.models;
 
 public class Vehicle {
 
+    private String name;
     private static String[] vehicles = {
             "Motocicleta 1",
             "Motocicleta 2",
@@ -15,9 +16,20 @@ public class Vehicle {
     };
 
     public Vehicle(){}
+    public Vehicle(String name){
+        this.name = name;
+    }
 
     public static String[] getVehicles(){
         return vehicles;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }
