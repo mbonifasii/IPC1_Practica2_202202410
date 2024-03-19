@@ -16,7 +16,7 @@ public class Vehicle {
 
     public Vehicle(){}
 
-    public String[] getVehicles(){
+    public static String[] getVehicles(){
         return vehicles;
     }
 

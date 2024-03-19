@@ -3,6 +3,7 @@ package com.marcosbonifasi.controllers;
 import com.marcosbonifasi.Main;
 import com.marcosbonifasi.models.Route;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -68,8 +69,42 @@ public class RoutesController {
         return routesArr;
     }
 
+    public static String[] getPoints(String removeRoute){
+        int indexToRemove = -1;
+        ArrayList<String> points = new ArrayList<String>();
+//        String[] points = new String[Main.getRoutes().size() * 2];
+
+        for (int i = 0; i < Main.getRoutes().size() * 2; i++) {
+            if(i<Main.getRoutes().size()){
+                points.add(Main.getRoutes().get(i).getStartingPoint());
+            }else{
+                points.add(Main.getRoutes().get(i - Main.getRoutes().size()).getFinalPoint());
+            }
+        }
+        System.out.println(removeRoute);
+        if(!removeRoute.isEmpty()) {
+            for (int i = 0; i < points.size(); i++) {
+                if (points.get(i).equals(removeRoute)) {
+                    indexToRemove = i;
+                    break;
+                }
+            }
+
+            if(indexToRemove != -1) points.remove(indexToRemove);
+        }
+
+
+        // Convert ArrayList to an array of Strings
+        String[] pointsArr = points.toArray(new String[points.size()]);
+
+
+        return pointsArr;
+    }
+
     public void update(int distance){
         this.route.setDistance(distance);
     }
+
+
 
 }

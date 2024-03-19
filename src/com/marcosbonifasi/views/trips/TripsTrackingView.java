@@ -42,6 +42,25 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         getContentPane().add(tripTrackingPanel);
 
         //  -- Components --
+        btnGenerateTrip = new JButton("Generar viaje");
+        btnGenerateTrip.setBounds(250, 20, 150, 30);
+        btnGenerateTrip.setBackground(new Color(163, 196, 243));
+        btnGenerateTrip.setForeground(Color.white);
+        btnGenerateTrip.setFont(new Font(btnGenerateTrip.getFont().getFontName(), Font.BOLD, 13));
+        btnGenerateTrip.setOpaque(true);
+        btnGenerateTrip.setBorderPainted(false);
+        btnGenerateTrip.addMouseListener(this);
+        tripTrackingPanel.add(btnGenerateTrip);
+
+        btnInitAllDrivers = new JButton("Iniciar todos");
+        btnInitAllDrivers.setBounds(410, 20, 150, 30);
+        btnInitAllDrivers.setBackground(new Color(144, 219, 244));
+        btnInitAllDrivers.setForeground(Color.white);
+        btnInitAllDrivers.setFont(new Font(btnInitAllDrivers.getFont().getFontName(), Font.BOLD, 13));
+        btnInitAllDrivers.setOpaque(true);
+        btnInitAllDrivers.setBorderPainted(false);
+        btnInitAllDrivers.addMouseListener(this);
+        tripTrackingPanel.add(btnInitAllDrivers);
 
 
         // First highway
@@ -161,7 +180,10 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(false){
+        if(e.getSource() == btnGenerateTrip){
+            TripsGenerateTripView tripsGenerateTripView = new TripsGenerateTripView();
+            tripsGenerateTripView.setVisible(true);
+            dispose();
 
         }else if (e.getSource() == closeLabel) {
             DashboardView dashboardView = new DashboardView();

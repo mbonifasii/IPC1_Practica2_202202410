@@ -2,6 +2,7 @@ package com.marcosbonifasi;
 
 
 import com.marcosbonifasi.models.Route;
+import com.marcosbonifasi.models.Trip;
 import com.marcosbonifasi.views.DashboardView;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 public class Main {
 
     private static ArrayList<Route> routes = new ArrayList<Route>();
+    private static ArrayList<Trip> currentTrips = new ArrayList<Trip>();
     private static int counterRoutes = 0;
 
     public static void main(String[] args) {
