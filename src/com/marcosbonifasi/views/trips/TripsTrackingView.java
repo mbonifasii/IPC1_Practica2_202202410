@@ -70,8 +70,22 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         btnGenerateTrip.setFont(new Font(btnGenerateTrip.getFont().getFontName(), Font.BOLD, 13));
         btnGenerateTrip.setOpaque(true);
         btnGenerateTrip.setBorderPainted(false);
-        btnGenerateTrip.addMouseListener(this);
+        if(!Main.driversAvailable())
+            btnGenerateTrip.setEnabled(false);
+        else
+            btnGenerateTrip.addMouseListener(this);
+
         tripTrackingPanel.add(btnGenerateTrip);
+
+        JLabel labelNoDriversAvailable = new JLabel("No hay pilotos disponibles :(");
+        labelNoDriversAvailable.setBounds(250, 50, 200, 30);
+        labelNoDriversAvailable.setForeground(Color.red);
+        labelNoDriversAvailable.setFont(new Font(labelNoDriversAvailable.getFont().getFontName(), Font.PLAIN, 12));
+        labelNoDriversAvailable.setVisible(false);
+        if(!Main.driversAvailable()){
+            labelNoDriversAvailable.setVisible(true);
+        }
+        tripTrackingPanel.add(labelNoDriversAvailable);
 
         btnInitAllDrivers = new JButton("Iniciar todos");
         btnInitAllDrivers.setBounds(410, 20, 150, 30);
@@ -289,7 +303,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             labelVehicle2 = new JLabel();
             labelVehicle2.setBounds(600, 30, 100, 50); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
             ImageIcon img2 = new ImageIcon(
-                    getClass().getResource("../../images/" + selectedImageVehicle(Main.getOnGoingTrips()[2].getVehicle().getName()))
+                    getClass().getResource("../../images/" + selectedImageVehicle(Main.getOnGoingTrips()[1].getVehicle().getName()))
             );
             Image nuevo2 = img2.getImage().getScaledInstance(100, 80, Image.SCALE_DEFAULT);
             labelVehicle2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -331,7 +345,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
                             "</html>"
             );
 
-            labelFinalPointInfo3.setBounds(630, 395, 150, 80);
+            labelFinalPointInfo3.setBounds(650, 395, 150, 80);
             labelFinalPointInfo3.setFont(new Font(labelFinalPointInfo3.getFont().getFontName(), Font.PLAIN, 10));
             labelFinalPointInfo3.setVisible(true);
             tripTrackingPanel.add(labelFinalPointInfo3);

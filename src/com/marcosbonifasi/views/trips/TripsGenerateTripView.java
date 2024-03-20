@@ -123,17 +123,6 @@ public class TripsGenerateTripView extends JFrame implements MouseListener {
         btnGenerateTrip.addMouseListener(this);
         generatePanelTrip.add(btnGenerateTrip);
 
-        JLabel labelNoDriversAvailable = new JLabel("No hay pilotos disponibles :(");
-        labelNoDriversAvailable.setBounds(150, 310, 200, 30);
-        labelNoDriversAvailable.setForeground(Color.red);
-        labelNoDriversAvailable.setFont(new Font(labelNoDriversAvailable.getFont().getFontName(), Font.PLAIN, 12));
-        labelNoDriversAvailable.setVisible(false);
-        btnGenerateTrip.setEnabled(false);
-        if(Main.driversAvailable()){
-            labelNoDriversAvailable.setVisible(true);
-        }
-        generatePanelTrip.add(labelNoDriversAvailable);
-
 
         // Carga la imagen
         ImageIcon closeIcon = new ImageIcon(getClass().getResource("../../images/close.png"));
