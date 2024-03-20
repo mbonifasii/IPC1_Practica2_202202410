@@ -1,6 +1,8 @@
 package com.marcosbonifasi.views.trips;
 
 import com.marcosbonifasi.Main;
+import com.marcosbonifasi.threads.Clock;
+import com.marcosbonifasi.threads.MotorcycleThread;
 import com.marcosbonifasi.views.DashboardView;
 
 import javax.swing.*;
@@ -16,9 +18,9 @@ public class TripsTrackingView extends JFrame implements MouseListener {
     private JLabel labelInitialPointInfo1;
     private JLabel labelFinalPointInfo1;
     private JLabel labelCurrentInfo1;
-    private JLabel labelVehicle1;
-    private JLabel labelVehicle2;
-    private JLabel labelVehicle3;
+    public JLabel labelVehicle1;
+    public JLabel labelVehicle2;
+    public JLabel labelVehicle3;
     private JLabel labelInitialPointInfo2;
     private JLabel labelFinalPointInfo2;
     private JLabel labelCurrentInfo2;
@@ -27,7 +29,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
     private JLabel labelCurrentInfo3;
     private JButton btnGenerateTrip;
     private JButton btnInitAllDrivers;
-    private JButton btnInitDriver1;
+    public JButton btnInitDriver1;
     private JButton btnInitDriver2;
     private JButton btnInitDriver3;
     private JButton btnRefillTank1;
@@ -36,12 +38,11 @@ public class TripsTrackingView extends JFrame implements MouseListener {
     private JButton btnReturn1;
     private JButton btnReturn2;
     private JButton btnReturn3;
-    private Rectangle vehicle1;
-    private Rectangle vehicle2;
-    private Rectangle vehicle3;
+    Rectangle vehicle1, vehicle2, vehicle3;
     private JLabel highway1;
     private JLabel highway2;
     private JLabel highway3;
+    private volatile boolean runningVehicle1 = true;
 
     public TripsTrackingView(){
         setSize(800, 620);
@@ -249,21 +250,21 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             labelFinalPointInfo1.setVisible(true);
             tripTrackingPanel.add(labelFinalPointInfo1);
 
-            labelVehicle1 = new JLabel();
-            labelVehicle1.setBounds(600, 30, 100, 50); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
+            this.labelVehicle1 = new JLabel();
+            this.labelVehicle1.setBounds(600, 30, 100, 50); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
             ImageIcon img1 = new ImageIcon(
                 getClass().getResource("../../images/" + selectedImageVehicle(Main.getOnGoingTrips()[0].getVehicle().getName()))
             );
             Image nuevo1 = img1.getImage().getScaledInstance(100, 80, Image.SCALE_DEFAULT);
-            labelVehicle1.setHorizontalAlignment(SwingConstants.CENTER);
-            labelVehicle1.setVerticalAlignment(SwingConstants.CENTER);
+            this.labelVehicle1.setHorizontalAlignment(SwingConstants.CENTER);
+            this.labelVehicle1.setVerticalAlignment(SwingConstants.CENTER);
             ImageIcon render = new ImageIcon(nuevo1);
-            labelVehicle1.setIcon(render);
-            labelVehicle1.setVisible(true);
-            vehicle1 = labelVehicle1.getBounds();
+            this.labelVehicle1.setIcon(render);
+            this.labelVehicle1.setVisible(true);
+            vehicle1 = this.labelVehicle1.getBounds();
             Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
-            labelVehicle1.setBorder(border);
-            highway1.add(labelVehicle1);
+            this.labelVehicle1.setBorder(border);
+            highway1.add(this.labelVehicle1);
 
         } else {
             btnInitDriver1.setEnabled(false);
@@ -375,7 +376,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         String imageName = "";
 
         if(vehicle.equals("Motocicleta 1") || vehicle.equals("Motocicleta 2") || vehicle.equals("Motocicleta 3")){
-            imageName = "motorcicle.png";
+            imageName = "motorcycle.png";
         }else if(vehicle.equals("Vehiculo estandar 1") || vehicle.equals("Vehiculo estandar 2") || vehicle.equals("Vehiculo estandar 3")){
             imageName = "standard_car.png";
         } else if(vehicle.equals("Vehiculo premium 1") || vehicle.equals("Vehiculo premium 2") || vehicle.equals("Vehiculo premium 3")) {
@@ -396,7 +397,28 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             DashboardView dashboardView = new DashboardView();
             dashboardView.setVisible(true);
             dispose();
+        } else if (e.getSource() == btnInitDriver1) {
+            Clock clock = new Clock(this);
+            clock.start();
+//            MotorcycleThread motorcycleThread = new MotorcycleThread(this);
+//            motorcycleThread.start();
+//            item = lbl1.getBounds();
+//
+//            moto = new Moto(this.game, this, this.reloj);
+//            moto.start();
+//            try {
+//                motorcycleThread.start();
+//                while (runningVehicle1) {
+//                    this.btnInitDriver1.setEnabled(false);
+//                }
+//            } catch (Exception ex) {
+//                System.out.println(ex);
+//            }
         }
+    }
+
+    public void stopVehicle1Thread() {
+        runningVehicle1 = false;
     }
 
     @Override
@@ -417,18 +439,5 @@ public class TripsTrackingView extends JFrame implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
-    }
-
-    class BackgroundImage extends JPanel {
-
-        private Image imagen;
-
-        @Override
-        public void paint(Graphics g) {
-            imagen = new ImageIcon(getClass().getResource("../imgs/fondo.gif")).getImage();
-            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
-            setOpaque(false);
-            super.paint(g);
-        }
     }
 }
