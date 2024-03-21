@@ -2,7 +2,7 @@ package com.marcosbonifasi.models;
 
 public class Vehicle {
 
-    private int gasoline;
+    private float gasoline;
     private String name;
 
     private static String[][] vehicles = {
@@ -35,11 +35,11 @@ public class Vehicle {
         this.name = name;
     }
 
-    public int getGasoline() {
+    public float getGasoline() {
         return this.gasoline;
     }
 
-    public void setGasoline(int gasoline) {
+    public void setGasoline(float gasoline) {
         this.gasoline = gasoline;
     }
 

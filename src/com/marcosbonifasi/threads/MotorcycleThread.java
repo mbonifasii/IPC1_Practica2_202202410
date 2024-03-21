@@ -38,7 +38,17 @@ public class MotorcycleThread extends Thread {
                 this.tripsTrackingView.labelVehicle1.setLocation(xVehicle, yVehicle);
                 this.tripsTrackingView.labelCurrentInfo1.setLocation(xInfo, yInfo);
 
-                this.trackingMotorcycleThread.trip.getHistory().setDistanceTraveled(((this.trackingMotorcycleThread.trip.getDistance()/750.0f)*10f));
+                int initKm = (int) Math.floor(this.trackingMotorcycleThread.trip.getHistory().getDistanceTraveled());
+                int finalKm = (int) Math.floor(this.trackingMotorcycleThread.trip.getHistory().getDistanceTraveled() + (this.trackingMotorcycleThread.trip.getDistance()/750.0f)*10f);
+
+                System.out.println("initkm: " + initKm);
+                System.out.println("finalkm: " + finalKm);
+
+                if((finalKm - initKm) == 1.0){
+                    this.trackingMotorcycleThread.trip.getVehicle().setGasoline(this.trackingMotorcycleThread.trip.getVehicle().getGasoline() - 0.1f);
+                }
+
+                this.trackingMotorcycleThread.trip.getHistory().setDistanceTraveled(((this.trackingMotorcycleThread.trip.getDistance()/750.0f)*10f  ));
 
                 this.tripsTrackingView.labelCurrentInfo1.setText(
                         "<html>" +
@@ -48,9 +58,10 @@ public class MotorcycleThread extends Thread {
                         "</html>"
                 );
 
-                System.out.println("Test: " + (this.trackingMotorcycleThread.trip.getDistance()/750.0f)*10f);
-                System.out.println("Distance traveled: " + this.trackingMotorcycleThread.trip.getHistory().getDistanceTraveled());
-                System.out.println();
+                if(this.trackingMotorcycleThread.trip.getVehicle().getGasoline() <= 0){
+                    this.stopThread();
+                    this.trackingMotorcycleThread.stopClockThread();
+                }
 
                 if (this.tripsTrackingView.labelVehicle1.getX() == 0 || this.tripsTrackingView.labelVehicle1.getX() == 600) {
                     this.stopThread();
