@@ -23,4 +23,8 @@ public class HistoriesController {
         Main.addHistory(this.history);
     }
 
+    public History getHistory(){
+        return this.history;
+    }
+
 }

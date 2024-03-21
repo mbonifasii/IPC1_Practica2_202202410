@@ -2,6 +2,7 @@ package com.marcosbonifasi.controllers;
 
 
 import com.marcosbonifasi.Main;
+import com.marcosbonifasi.models.Route;
 import com.marcosbonifasi.models.Trip;
 import com.marcosbonifasi.models.Vehicle;
 
@@ -11,12 +12,11 @@ public class TripsController {
 
     public TripsController(){}
 
-    public void create(int id, Vehicle vehicle, String startingPoint, String finalPoint, String status){
+    public void create(int id, Vehicle vehicle, Route route, String status){
         this.trip = new Trip(
             id,
             vehicle,
-            startingPoint,
-            finalPoint,
+            route,
             status
         );
 

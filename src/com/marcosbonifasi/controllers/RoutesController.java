@@ -12,9 +12,11 @@ public class RoutesController {
     private Route route;
 
     public RoutesController(){}
-
     public RoutesController(int id){
-        load(id);
+        loadById(id);
+    }
+    public RoutesController(String startingPoint){
+        load(startingPoint);
     }
 
     public RoutesController(String startingPoint, String finalPoint, int distance){
@@ -29,14 +31,36 @@ public class RoutesController {
         return !Integer.toString(this.route.getId()).isEmpty();
     }
 
-    private void load(int id){
-        int[] existence = validateExistence(id);
+    private void load(String startingPoint){
+        int[] existence = validateExistence(startingPoint);
 
         if(existence[0] == 1)
             this.route = Main.getRoutes().get(existence[1]);
     }
 
-    public int[] validateExistence(int id){
+    private void loadById(int id){
+        int[] existence = validateExistenceById(id);
+
+        if(existence[0] == 1)
+            this.route = Main.getRoutes().get(existence[1]);
+    }
+
+    public int[] validateExistence(String startingPoint){
+        int[] existence = new int[2];
+
+        // Find the doctor according to the code
+        for (int i = 0; i < Main.getRoutes().size(); i++) {
+            if(Main.getRoutes().get(i).getStartingPoint().equals(startingPoint)){
+                existence[0] = 1;
+                existence[1] = i;
+                break;
+            }
+        }
+
+        return existence;
+    }
+
+    public int[] validateExistenceById(int id){
         int[] existence = new int[2];
 
         // Find the doctor according to the code
@@ -104,7 +128,9 @@ public class RoutesController {
     public void update(int distance){
         this.route.setDistance(distance);
     }
-
+    public Route getRoute(){
+        return this.route;
+    }
 
 
 }

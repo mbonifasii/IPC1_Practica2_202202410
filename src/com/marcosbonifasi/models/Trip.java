@@ -5,15 +5,16 @@ import com.marcosbonifasi.Main;
 public class Trip {
 
     private int id;
+    private String status;
     private Vehicle vehicle;
-    private String startingPoint, finalPoint, status;
+    private Route route;
+    private History history;
 
     public Trip(){}
-    public Trip(int id, Vehicle vehicle, String startingPoint, String finalPoint, String status){
+    public Trip(int id, Vehicle vehicle, Route route, String status){
         this.id = id;
         this.vehicle = vehicle;
-        this.startingPoint = startingPoint;
-        this.finalPoint = finalPoint;
+        this.route = route;
         this.status = status;
     }
 
@@ -33,21 +34,6 @@ public class Trip {
         this.vehicle = vehicle;
     }
 
-    public String getStartingPoint() {
-        return startingPoint;
-    }
-
-    public void setStartingPoint(String startingPoint) {
-        this.startingPoint = startingPoint;
-    }
-
-    public String getFinalPoint() {
-        return finalPoint;
-    }
-
-    public void setFinalPoint(String finalPoint) {
-        this.finalPoint = finalPoint;
-    }
 
     public String getStatus() {
         return status;
@@ -61,12 +47,28 @@ public class Trip {
         int distance = 0;
 
         for (int i = 0; i < Main.getRoutes().size(); i++) {
-            if (Main.getRoutes().get(i).getStartingPoint().equals(this.getStartingPoint())){
+            if (Main.getRoutes().get(i).getStartingPoint().equals(this.route.getStartingPoint())){
                 distance = Main.getRoutes().get(i).getDistance();
                 break;
             }
         }
 
         return distance;
+    }
+
+    public Route getRoute() {
+        return route;
+    }
+
+    public void setRoute(Route route) {
+        this.route = route;
+    }
+
+    public History getHistory() {
+        return history;
+    }
+
+    public void setHistory(History history) {
+        this.history = history;
     }
 }

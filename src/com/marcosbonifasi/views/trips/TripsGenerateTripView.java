@@ -161,13 +161,13 @@ public class TripsGenerateTripView extends JFrame implements MouseListener {
             }
 
             VehiclesController vehiclesController = new VehiclesController(selectedVehicle);
+            RoutesController routesController = new RoutesController(selectedStartingPoint);
 
             TripsController tripsController = new TripsController();
             tripsController.create(
                     Main.generateId("trip"),
                     vehiclesController.getVehicle(),
-                    selectedStartingPoint,
-                    selectedFinalPoint,
+                    routesController.getRoute(),
                     "En curso"
             );
 
@@ -179,6 +179,8 @@ public class TripsGenerateTripView extends JFrame implements MouseListener {
                     0,
                     0
             );
+
+            tripsController.getTrip().setHistory(historiesController.getHistory());
 
             Main.addTripToQueue(tripsController.getTrip());
 
