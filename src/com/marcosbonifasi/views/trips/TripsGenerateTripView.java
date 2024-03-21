@@ -168,13 +168,13 @@ public class TripsGenerateTripView extends JFrame implements MouseListener {
                     Main.generateId("trip"),
                     vehiclesController.getVehicle(),
                     routesController.getRoute(),
-                    "En curso"
+                    "Pending"
             );
 
             HistoriesController historiesController = new HistoriesController();
             historiesController.create(
                     tripsController.getTrip(),
-                    LocalDateTime.now().toString(),
+                    "",
                     "",
                     0,
                     0

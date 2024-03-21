@@ -47,7 +47,7 @@ public class Trip {
         float distance = 0.0f;
 
         for (int i = 0; i < Main.getRoutes().size(); i++) {
-            if (Main.getRoutes().get(i).getStartingPoint().equals(this.route.getStartingPoint())){
+            if (Main.getRoutes().get(i).getStartingPoint().equals(this.route.getStartingPoint()) || Main.getRoutes().get(i).getFinalPoint().equals(this.route.getStartingPoint())){
                 distance = Main.getRoutes().get(i).getDistance();
                 break;
             }

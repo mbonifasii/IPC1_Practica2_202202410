@@ -4,6 +4,7 @@ import com.marcosbonifasi.Main;
 import com.marcosbonifasi.views.trips.TripsTrackingView;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MotorcycleThread extends Thread {
 
@@ -59,8 +60,30 @@ public class MotorcycleThread extends Thread {
                 if(this.trackingMotorcycleThread.trip.getVehicle().getGasoline() <= 0.0f){
                     this.stopThread();
                     this.trackingMotorcycleThread.stopClockThread();
+
+                    // Show refill button
+                    this.tripsTrackingView.btnRefillTank1 = new JButton("Recargar");
+                    this.tripsTrackingView.btnRefillTank1.setBounds(0, 0, 100, 30);
+                    if(this.trackingMotorcycleThread.tripType.equals("return")){
+                        this.tripsTrackingView.btnRefillTank1.setLocation(this.tripsTrackingView.labelVehicle1.getX() - 100, this.tripsTrackingView.labelVehicle1.getY());
+                    }else{
+                        this.tripsTrackingView.btnRefillTank1.setLocation(this.tripsTrackingView.labelVehicle1.getX() + 100, this.tripsTrackingView.labelVehicle1.getY());
+                    }
+
+                    this.tripsTrackingView.btnRefillTank1.setBackground(new Color(230, 57, 70));
+                    this.tripsTrackingView.btnRefillTank1.setForeground(Color.white);
+                    this.tripsTrackingView.btnRefillTank1.setFont(new Font(this.tripsTrackingView.btnRefillTank1.getFont().getFontName(), Font.BOLD, 10));
+                    this.tripsTrackingView.btnRefillTank1.setOpaque(true);
+                    this.tripsTrackingView.btnRefillTank1.setBorderPainted(false);
+                    this.tripsTrackingView.btnRefillTank1.setVisible(true);
+                    this.tripsTrackingView.btnRefillTank1.setEnabled(true);
+                    this.tripsTrackingView.btnRefillTank1.addMouseListener(this.tripsTrackingView);
+                    this.tripsTrackingView.highway1.add(this.tripsTrackingView.btnRefillTank1);
                 }
 
+
+                if (this.tripsTrackingView.labelVehicle1.getX() == 600)
+                    this.trackingMotorcycleThread.trip.getHistory().setStatus("finalized");
 
                 if (this.tripsTrackingView.labelVehicle1.getX() == 0 || this.tripsTrackingView.labelVehicle1.getX() == 600) {
                     this.stopThread();

@@ -50,7 +50,7 @@ public class RoutesController {
 
         // Find the doctor according to the code
         for (int i = 0; i < Main.getRoutes().size(); i++) {
-            if(Main.getRoutes().get(i).getStartingPoint().equals(startingPoint)){
+            if(Main.getRoutes().get(i).getStartingPoint().equals(startingPoint) || Main.getRoutes().get(i).getFinalPoint().equals(startingPoint)){
                 existence[0] = 1;
                 existence[1] = i;
                 break;
