@@ -14,33 +14,21 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
     private JPanel tripTrackingPanel;
     private JLabel closeLabel;
-    private JLabel labelInitialPointInfo1;
-    private JLabel labelFinalPointInfo1;
-    private JLabel labelCurrentInfo1;
-    public JLabel labelVehicle1;
-    public JLabel labelVehicle2;
-    public JLabel labelVehicle3;
-    private JLabel labelInitialPointInfo2;
-    private JLabel labelFinalPointInfo2;
-    private JLabel labelCurrentInfo2;
-    private JLabel labelInitialPointInfo3;
-    private JLabel labelFinalPointInfo3;
-    private JLabel labelCurrentInfo3;
+    private JLabel labelInitialPointInfo1, labelFinalPointInfo1;
+    public JLabel labelCurrentInfo1;
+    public JLabel labelVehicle1, labelVehicle2, labelVehicle3;
+    private JLabel labelInitialPointInfo2, labelFinalPointInfo2;
+    public JLabel labelCurrentInfo2;
+    private JLabel labelInitialPointInfo3, labelFinalPointInfo3;
+    public JLabel labelCurrentInfo3;
     private JButton btnGenerateTrip;
     public JButton btnInitAllDrivers;
-    public JButton btnInitDriver1;
-    public JButton btnInitDriver2;
-    public JButton btnInitDriver3;
-    public JButton btnRefillTank1;
-    public JButton btnRefillTank2;
-    public JButton btnRefillTank3;
-    public JButton btnReturn1;
-    public JButton btnReturn2;
-    public JButton btnReturn3;
-    Rectangle vehicle1, vehicle2, vehicle3;
-    private JLabel highway1;
-    private JLabel highway2;
-    private JLabel highway3;
+    public JButton btnInitDriver1, btnInitDriver2, btnInitDriver3;
+    public JButton btnRefillTank1, btnRefillTank2, btnRefillTank3;
+    public JButton btnReturn1, btnReturn2, btnReturn3;
+    public Rectangle vehicle1, vehicle2, vehicle3;
+    public Rectangle vehicle1Info, vehicle2Info, vehicle3Info;
+    public JLabel highway1, highway2, highway3;
 
     public TripsTrackingView(){
         setSize(800, 620);
@@ -237,11 +225,11 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
             labelInitialPointInfo1 = new JLabel(
                     "<html>" +
-                    Main.getOnGoingTrips()[0].getVehicle().getName()+
+                    Main.getOnGoingTrips()[0].getVehicle().getName() +
                     "<br>" +
-                    "DISTANCIA" +
+                    "Distancia " + Main.getOnGoingTrips()[0].getDistance() + "km" +
                     "<br>" +
-                    "Destino " + Main.getOnGoingTrips()[0].getFinalPoint()+
+                    "Destino " + Main.getOnGoingTrips()[0].getFinalPoint() +
                     "</html>"
             );
 
@@ -277,6 +265,21 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             this.labelVehicle1.setBorder(border);
             highway1.add(this.labelVehicle1);
 
+
+            labelCurrentInfo1 = new JLabel(
+                "<html>" +
+                "Recorrido " +
+                "<br>" +
+                "Gasolina" +
+                "</html>"
+            );
+
+            labelCurrentInfo1.setBounds(600, 0, 50, 30);
+            labelCurrentInfo1.setForeground(Color.black);
+            labelCurrentInfo1.setFont(new Font(labelCurrentInfo1.getFont().getFontName(), Font.BOLD, 10));
+            labelCurrentInfo1.setVisible(true);
+            highway1.add(labelCurrentInfo1);
+
         } else {
             btnInitDriver1.setEnabled(false);
             btnReturn1.setEnabled(false);
@@ -293,7 +296,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
                     "<html>" +
                             Main.getOnGoingTrips()[1].getVehicle().getName()+
                             "<br>" +
-                            "DISTANCIA" +
+                            "Distancia " + Main.getOnGoingTrips()[1].getDistance() + "km" +
                             "<br>" +
                             "Destino " + Main.getOnGoingTrips()[1].getFinalPoint()+
                             "</html>"
@@ -345,7 +348,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
                     "<html>" +
                             Main.getOnGoingTrips()[2].getVehicle().getName()+
                             "<br>" +
-                            "DISTANCIA" +
+                            "Distancia " + Main.getOnGoingTrips()[2].getDistance() + "km" +
                             "<br>" +
                             "Destino " + Main.getOnGoingTrips()[2].getFinalPoint()+
                             "</html>"

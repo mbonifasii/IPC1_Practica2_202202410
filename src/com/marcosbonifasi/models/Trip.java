@@ -1,5 +1,7 @@
 package com.marcosbonifasi.models;
 
+import com.marcosbonifasi.Main;
+
 public class Trip {
 
     private int id;
@@ -53,5 +55,18 @@ public class Trip {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getDistance(){
+        int distance = 0;
+
+        for (int i = 0; i < Main.getRoutes().size(); i++) {
+            if (Main.getRoutes().get(i).getStartingPoint().equals(this.getStartingPoint())){
+                distance = Main.getRoutes().get(i).getDistance();
+                break;
+            }
+        }
+
+        return distance;
     }
 }

@@ -5,6 +5,7 @@ import com.marcosbonifasi.views.trips.TripsTrackingView;
 public class TrackingMotorcycleThread extends Thread {
     String tripType;
     TripsTrackingView tripsTrackingView;
+
     private volatile boolean runningClock = true;
 
     public TrackingMotorcycleThread(TripsTrackingView tripsTrackingView, String tripType) {
