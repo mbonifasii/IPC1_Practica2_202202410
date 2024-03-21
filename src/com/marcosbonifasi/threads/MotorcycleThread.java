@@ -25,7 +25,7 @@ public class MotorcycleThread extends Thread {
     public void run(){
         try{
             while(runningVehicle1){
-                sleep((750/this.trackingMotorcycleThread.trip.getDistance())*10); // this should be according to the distance
+                sleep((int) (750/this.trackingMotorcycleThread.trip.getDistance())*10); // this should be according to the distance
 
                 if(this.trackingMotorcycleThread.tripType.equals("go")){
                     this.xVehicle-=8;
@@ -35,20 +35,18 @@ public class MotorcycleThread extends Thread {
                     this.xInfo+=8;
                 }
 
-                this.tripsTrackingView.labelVehicle1.setLocation(xVehicle, yVehicle);
-                this.tripsTrackingView.labelCurrentInfo1.setLocation(xInfo, yInfo);
 
                 int initKm = (int) Math.floor(this.trackingMotorcycleThread.trip.getHistory().getDistanceTraveled());
                 int finalKm = (int) Math.floor(this.trackingMotorcycleThread.trip.getHistory().getDistanceTraveled() + (this.trackingMotorcycleThread.trip.getDistance()/750.0f)*10f);
 
-                System.out.println("initkm: " + initKm);
-                System.out.println("finalkm: " + finalKm);
-
-                if((finalKm - initKm) == 1.0){
+                if((finalKm - initKm) == 1.0) {
                     this.trackingMotorcycleThread.trip.getVehicle().setGasoline(this.trackingMotorcycleThread.trip.getVehicle().getGasoline() - 0.1f);
+                    this.trackingMotorcycleThread.trip.getHistory().setGasolineConsumed(this.trackingMotorcycleThread.trip.getHistory().getGasolineConsumed() + 0.1f);
                 }
 
-                this.trackingMotorcycleThread.trip.getHistory().setDistanceTraveled(((this.trackingMotorcycleThread.trip.getDistance()/750.0f)*10f  ));
+                this.tripsTrackingView.labelVehicle1.setLocation(xVehicle, yVehicle);
+                this.tripsTrackingView.labelCurrentInfo1.setLocation(xInfo, yInfo);
+                this.trackingMotorcycleThread.trip.getHistory().setDistanceTraveled(((this.trackingMotorcycleThread.trip.getDistance()/750.0f)*10.0f));
 
                 this.tripsTrackingView.labelCurrentInfo1.setText(
                         "<html>" +
@@ -58,10 +56,11 @@ public class MotorcycleThread extends Thread {
                         "</html>"
                 );
 
-                if(this.trackingMotorcycleThread.trip.getVehicle().getGasoline() <= 0){
+                if(this.trackingMotorcycleThread.trip.getVehicle().getGasoline() <= 0.0f){
                     this.stopThread();
                     this.trackingMotorcycleThread.stopClockThread();
                 }
+
 
                 if (this.tripsTrackingView.labelVehicle1.getX() == 0 || this.tripsTrackingView.labelVehicle1.getX() == 600) {
                     this.stopThread();

@@ -43,8 +43,8 @@ public class Trip {
         this.status = status;
     }
 
-    public int getDistance(){
-        int distance = 0;
+    public float getDistance(){
+        float distance = 0.0f;
 
         for (int i = 0; i < Main.getRoutes().size(); i++) {
             if (Main.getRoutes().get(i).getStartingPoint().equals(this.route.getStartingPoint())){

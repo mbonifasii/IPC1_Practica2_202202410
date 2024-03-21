@@ -53,7 +53,7 @@ public class Main {
 
     private static void initVehicles(){
         for (int i = 0; i < Vehicle.getVehicles().length; i++) {
-            vehiclesAvailable.add(new Vehicle(Vehicle.getVehicles()[i][0], Integer.parseInt(Vehicle.getVehicles()[i][1])));
+            vehiclesAvailable.add(new Vehicle(Vehicle.getVehicles()[i][0], Float.parseFloat(Vehicle.getVehicles()[i][1])));
         }
     }
 

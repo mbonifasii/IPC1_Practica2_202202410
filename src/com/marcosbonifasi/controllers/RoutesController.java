@@ -19,7 +19,7 @@ public class RoutesController {
         load(startingPoint);
     }
 
-    public RoutesController(String startingPoint, String finalPoint, int distance){
+    public RoutesController(String startingPoint, String finalPoint, float distance){
         this.route = new Route();
         this.route.setId(Main.generateId("route"));
         this.route.setStartingPoint(startingPoint);

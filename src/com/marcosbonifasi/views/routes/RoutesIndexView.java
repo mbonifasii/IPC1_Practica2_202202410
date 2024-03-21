@@ -152,7 +152,7 @@ public class RoutesIndexView extends JFrame implements MouseListener {
                 RoutesController routesController = new RoutesController(
                         values[0],
                         values[1],
-                        Integer.parseInt(values[2])
+                        Float.parseFloat(values[2])
                 );
 
                 routesController.create();

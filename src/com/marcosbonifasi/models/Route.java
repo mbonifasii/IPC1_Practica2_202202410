@@ -2,12 +2,13 @@ package com.marcosbonifasi.models;
 
 public class Route {
 
-    private int id, distance;
+    private int id;
+    private float distance;
     private String startingPoint, finalPoint;
 
     public Route(){}
 
-    public Route(int id, int distance, String startingPoint, String finalPoint){
+    public Route(int id, float distance, String startingPoint, String finalPoint){
         this.id = id;
         this.distance = distance;
         this.startingPoint = startingPoint;
@@ -22,11 +23,11 @@ public class Route {
         this.id = id;
     }
 
-    public int getDistance() {
+    public float getDistance() {
         return distance;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(float distance) {
         this.distance = distance;
     }
 
