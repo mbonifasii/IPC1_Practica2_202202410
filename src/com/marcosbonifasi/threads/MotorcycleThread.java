@@ -1,6 +1,9 @@
 package com.marcosbonifasi.threads;
 
+import com.marcosbonifasi.Main;
 import com.marcosbonifasi.views.trips.TripsTrackingView;
+
+import javax.swing.*;
 
 public class MotorcycleThread extends Thread {
 
@@ -22,7 +25,7 @@ public class MotorcycleThread extends Thread {
     public void run(){
         try{
             while(runningVehicle1){
-                sleep(100); // this should be according to the distance
+                sleep((750/this.trackingMotorcycleThread.trip.getDistance())*10); // this should be according to the distance
 
                 if(this.trackingMotorcycleThread.tripType.equals("go")){
                     this.xVehicle-=8;
@@ -32,9 +35,22 @@ public class MotorcycleThread extends Thread {
                     this.xInfo+=8;
                 }
 
-
                 this.tripsTrackingView.labelVehicle1.setLocation(xVehicle, yVehicle);
                 this.tripsTrackingView.labelCurrentInfo1.setLocation(xInfo, yInfo);
+
+                this.trackingMotorcycleThread.trip.getHistory().setDistanceTraveled(((this.trackingMotorcycleThread.trip.getDistance()/750.0f)*10f));
+
+                this.tripsTrackingView.labelCurrentInfo1.setText(
+                        "<html>" +
+                        "Recorrido " + this.trackingMotorcycleThread.trip.getHistory().getDistanceTraveled() +
+                        "<br>" +
+                        "Gasolina " + this.trackingMotorcycleThread.trip.getVehicle().getGasoline() +
+                        "</html>"
+                );
+
+                System.out.println("Test: " + (this.trackingMotorcycleThread.trip.getDistance()/750.0f)*10f);
+                System.out.println("Distance traveled: " + this.trackingMotorcycleThread.trip.getHistory().getDistanceTraveled());
+                System.out.println();
 
                 if (this.tripsTrackingView.labelVehicle1.getX() == 0 || this.tripsTrackingView.labelVehicle1.getX() == 600) {
                     this.stopThread();

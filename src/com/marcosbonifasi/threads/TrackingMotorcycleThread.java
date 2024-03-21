@@ -1,16 +1,18 @@
 package com.marcosbonifasi.threads;
 
+import com.marcosbonifasi.models.Trip;
 import com.marcosbonifasi.views.trips.TripsTrackingView;
 
 public class TrackingMotorcycleThread extends Thread {
     String tripType;
     TripsTrackingView tripsTrackingView;
-
+    Trip trip;
     private volatile boolean runningClock = true;
 
-    public TrackingMotorcycleThread(TripsTrackingView tripsTrackingView, String tripType) {
+    public TrackingMotorcycleThread(TripsTrackingView tripsTrackingView, Trip trip, String tripType) {
         this.tripsTrackingView = tripsTrackingView;
         this.tripType = tripType;
+        this.trip = trip;
     }
 
     @Override

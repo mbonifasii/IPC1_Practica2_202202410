@@ -138,7 +138,13 @@ public class RoutesIndexView extends JFrame implements MouseListener {
     private void readCSV(){
         try (BufferedReader br = new BufferedReader(new FileReader(fileSelected.getAbsolutePath()))) {
             String line;
+            boolean ignored = false;
             while ((line = br.readLine()) != null) {
+                if(!ignored){
+                    ignored = true;
+                    continue;
+                }
+
                 // Splitting the line by comma to get individual values
                 String[] values = line.split(",");
 

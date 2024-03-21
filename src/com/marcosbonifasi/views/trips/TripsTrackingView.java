@@ -261,8 +261,8 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             this.labelVehicle1.setIcon(render);
             this.labelVehicle1.setVisible(true);
             vehicle1 = this.labelVehicle1.getBounds();
-            Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
-            this.labelVehicle1.setBorder(border);
+//            Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
+//            this.labelVehicle1.setBorder(border);
             highway1.add(this.labelVehicle1);
 
 
@@ -274,9 +274,9 @@ public class TripsTrackingView extends JFrame implements MouseListener {
                 "</html>"
             );
 
-            labelCurrentInfo1.setBounds(600, 0, 70, 30);
+            labelCurrentInfo1.setBounds(600, 0, 100, 40);
             labelCurrentInfo1.setForeground(Color.black);
-            labelCurrentInfo1.setFont(new Font(labelCurrentInfo1.getFont().getFontName(), Font.BOLD, 10));
+            labelCurrentInfo1.setFont(new Font(labelCurrentInfo1.getFont().getFontName(), Font.BOLD, 8));
             labelCurrentInfo1.setVisible(true);
             highway1.add(labelCurrentInfo1);
 
@@ -330,8 +330,8 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             labelVehicle2.setIcon(render);
             labelVehicle2.setVisible(true);
             vehicle2 = labelVehicle2.getBounds();
-            Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
-            labelVehicle2.setBorder(border);
+//            Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
+//            labelVehicle2.setBorder(border);
             highway2.add(labelVehicle2);
         } else {
             btnInitDriver2.setEnabled(false);
@@ -382,8 +382,8 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             labelVehicle3.setIcon(render);
             labelVehicle3.setVisible(true);
             vehicle3 = labelVehicle3.getBounds();
-            Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
-            labelVehicle3.setBorder(border);
+//            Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
+//            labelVehicle3.setBorder(border);
             highway3.add(labelVehicle3);
         } else {
             btnInitDriver3.setEnabled(false);
@@ -417,20 +417,20 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             dashboardView.setVisible(true);
             dispose();
         } else if (e.getSource() == btnInitDriver1) {
-            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, "go");
+            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[0], "go");
             trackingMotorcycleThread.start();
         } else if (e.getSource() == btnInitDriver2) {
 
         } else if (e.getSource() == btnInitDriver3) {
 
         } else if (e.getSource() == btnReturn1) {
-            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, "return");
+            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[0],"return");
             trackingMotorcycleThread.start();
         } else if (e.getSource() == btnReturn2) {
-            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, "return");
+            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[1],"return");
             trackingMotorcycleThread.start();
         } else if (e.getSource() == btnReturn3) {
-            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, "return");
+            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[2],"return");
             trackingMotorcycleThread.start();
         }
     }

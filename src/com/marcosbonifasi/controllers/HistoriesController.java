@@ -11,12 +11,12 @@ public class HistoriesController {
 
     public HistoriesController(){}
 
-    public void create(Trip trip, String initialDatetime, String finalDatetime, int distance, int gasolineConsumed){
+    public void create(Trip trip, String initialDatetime, String finalDatetime, int distanceTraveled, int gasolineConsumed){
         this.history = new History(
                 trip,
                 initialDatetime,
                 finalDatetime,
-                distance,
+                distanceTraveled,
                 gasolineConsumed
         );
 

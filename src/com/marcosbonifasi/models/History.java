@@ -2,12 +2,12 @@ package com.marcosbonifasi.models;
 
 public class History extends Trip{
 
-    private int distanceTraveled, gasolineConsumed;
+    private float distanceTraveled, gasolineConsumed;
     private String initialDatetime, finalDatetime;
 
     public History(){}
 
-    public History(Trip trip, String initialDatetime, String finalDatetime, int distanceTraveled, int gasolineConsumed){
+    public History(Trip trip, String initialDatetime, String finalDatetime, float distanceTraveled, float gasolineConsumed){
         super(trip.getId(), trip.getVehicle(), trip.getRoute(), trip.getStatus());
         this.initialDatetime = initialDatetime;
         this.finalDatetime = finalDatetime;
@@ -15,19 +15,20 @@ public class History extends Trip{
         this.gasolineConsumed = gasolineConsumed;
     }
 
-    public int getDistanceTraveled() {
+    public float getDistanceTraveled() {
         return distanceTraveled;
     }
 
-    public void setDistanceTraveled(int distanceTraveled) {
-        this.distanceTraveled = distanceTraveled;
+    public void setDistanceTraveled(float distanceTraveled) {
+
+        this.distanceTraveled += distanceTraveled;
     }
 
-    public int getGasolineConsumed() {
+    public float getGasolineConsumed() {
         return gasolineConsumed;
     }
 
-    public void setGasolineConsumed(int gasolineConsumed) {
+    public void setGasolineConsumed(float gasolineConsumed) {
         this.gasolineConsumed = gasolineConsumed;
     }
 
