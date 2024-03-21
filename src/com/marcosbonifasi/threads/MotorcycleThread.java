@@ -7,31 +7,40 @@ public class MotorcycleThread extends Thread {
     int x, y;
     private volatile boolean runningVehicle1 = true;
     private TripsTrackingView tripsTrackingView;
-    private Clock clock;
+    private TrackingMotorcycleThread trackingMotorcycleThread;
 
     public MotorcycleThread(){}
-    public MotorcycleThread(TripsTrackingView tripsTrackingView, Clock clock){
+    public MotorcycleThread(TripsTrackingView tripsTrackingView, TrackingMotorcycleThread trackingMotorcycleThread){
         this.tripsTrackingView = tripsTrackingView;
         this.x = this.tripsTrackingView.labelVehicle1.getX();
         this.y = this.tripsTrackingView.labelVehicle1.getY();
-        this.clock = clock;
+        this.trackingMotorcycleThread = trackingMotorcycleThread;
     }
 
     public void run(){
         try {
             while(runningVehicle1){
-                sleep(250); // ms
-                this.x -=8;
+                sleep(100); // this should be according to the distance
+
+                if(this.trackingMotorcycleThread.tripType.equals("go"))
+                    this.x -=8;
+                else if(this.trackingMotorcycleThread.tripType.equals("return"))
+                    this.x +=8;
+
                 this.tripsTrackingView.labelVehicle1.setLocation(x, y);
 
-                if (this.tripsTrackingView.labelVehicle1.getX() == 0) {
-                    System.out.println("dentro");
-                    System.out.println("Llego al inicio");
-                    this.tripsTrackingView.stopVehicle1Thread();
+                if (this.tripsTrackingView.labelVehicle1.getX() == 0 || this.tripsTrackingView.labelVehicle1.getX() == 600) {
                     this.stopThread();
-                    this.clock.stopClockThread();
-
+                    this.trackingMotorcycleThread.stopClockThread();
                 }
+
+                if (this.tripsTrackingView.labelVehicle1.getX() == 0){
+                    this.tripsTrackingView.btnInitDriver1.setEnabled(false);
+                    this.tripsTrackingView.btnInitDriver1.removeMouseListener(this.tripsTrackingView);
+                    this.tripsTrackingView.btnReturn1.setEnabled(true);
+                    this.tripsTrackingView.btnReturn1.addMouseListener(this.tripsTrackingView);
+                }
+
                 this.tripsTrackingView.repaint();
             }
         } catch (Exception e){

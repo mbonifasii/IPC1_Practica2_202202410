@@ -1,8 +1,7 @@
 package com.marcosbonifasi.views.trips;
 
 import com.marcosbonifasi.Main;
-import com.marcosbonifasi.threads.Clock;
-import com.marcosbonifasi.threads.MotorcycleThread;
+import com.marcosbonifasi.threads.TrackingMotorcycleThread;
 import com.marcosbonifasi.views.DashboardView;
 
 import javax.swing.*;
@@ -28,21 +27,20 @@ public class TripsTrackingView extends JFrame implements MouseListener {
     private JLabel labelFinalPointInfo3;
     private JLabel labelCurrentInfo3;
     private JButton btnGenerateTrip;
-    private JButton btnInitAllDrivers;
+    public JButton btnInitAllDrivers;
     public JButton btnInitDriver1;
-    private JButton btnInitDriver2;
-    private JButton btnInitDriver3;
-    private JButton btnRefillTank1;
-    private JButton btnRefillTank2;
-    private JButton btnRefillTank3;
-    private JButton btnReturn1;
-    private JButton btnReturn2;
-    private JButton btnReturn3;
+    public JButton btnInitDriver2;
+    public JButton btnInitDriver3;
+    public JButton btnRefillTank1;
+    public JButton btnRefillTank2;
+    public JButton btnRefillTank3;
+    public JButton btnReturn1;
+    public JButton btnReturn2;
+    public JButton btnReturn3;
     Rectangle vehicle1, vehicle2, vehicle3;
     private JLabel highway1;
     private JLabel highway2;
     private JLabel highway3;
-    private volatile boolean runningVehicle1 = true;
 
     public TripsTrackingView(){
         setSize(800, 620);
@@ -71,7 +69,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         btnGenerateTrip.setFont(new Font(btnGenerateTrip.getFont().getFontName(), Font.BOLD, 13));
         btnGenerateTrip.setOpaque(true);
         btnGenerateTrip.setBorderPainted(false);
-        if(!Main.driversAvailable())
+        if(!Main.driversAvailable() || Main.getRoutes().isEmpty())
             btnGenerateTrip.setEnabled(false);
         else
             btnGenerateTrip.addMouseListener(this);
@@ -88,6 +86,16 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         }
         tripTrackingPanel.add(labelNoDriversAvailable);
 
+        JLabel labelNoRoutesAvailable = new JLabel("Las rutas no han sido cargadas");
+        labelNoRoutesAvailable.setBounds(250, 50, 200, 30);
+        labelNoRoutesAvailable.setForeground(Color.red);
+        labelNoRoutesAvailable.setFont(new Font(labelNoRoutesAvailable.getFont().getFontName(), Font.PLAIN, 12));
+        labelNoRoutesAvailable.setVisible(false);
+        if(Main.getRoutes().isEmpty()){
+            labelNoRoutesAvailable.setVisible(true);
+        }
+        tripTrackingPanel.add(labelNoRoutesAvailable);
+
         btnInitAllDrivers = new JButton("Iniciar todos");
         btnInitAllDrivers.setBounds(410, 20, 150, 30);
         btnInitAllDrivers.setBackground(new Color(144, 219, 244));
@@ -95,7 +103,12 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         btnInitAllDrivers.setFont(new Font(btnInitAllDrivers.getFont().getFontName(), Font.BOLD, 13));
         btnInitAllDrivers.setOpaque(true);
         btnInitAllDrivers.setBorderPainted(false);
-        btnInitAllDrivers.addMouseListener(this);
+        btnInitAllDrivers.setEnabled(false);
+        if(!Main.driversAvailable() || Main.getRoutes().isEmpty())
+            btnInitAllDrivers.setEnabled(false);
+        else
+            btnInitAllDrivers.addMouseListener(this);
+
         tripTrackingPanel.add(btnInitAllDrivers);
 
 
@@ -109,7 +122,6 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         // Crea un JLabel para mostrar la imagen
         highway1 = new JLabel(adjustedImageHighwayIcon);
         highway1.setBounds(50, 120, 700, 80); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
-        highway1.addMouseListener(this);
         tripTrackingPanel.add(highway1);
 
         btnInitDriver1 = new JButton("Iniciar");
@@ -119,7 +131,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         btnInitDriver1.setFont(new Font(btnInitDriver1.getFont().getFontName(), Font.BOLD, 13));
         btnInitDriver1.setOpaque(true);
         btnInitDriver1.setBorderPainted(false);
-        btnInitDriver1.addMouseListener(this);
+        btnInitDriver1.setEnabled(false);
         tripTrackingPanel.add(btnInitDriver1);
 
         btnReturn1 = new JButton("Regresar");
@@ -129,7 +141,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         btnReturn1.setFont(new Font(btnReturn1.getFont().getFontName(), Font.BOLD, 13));
         btnReturn1.setOpaque(true);
         btnReturn1.setBorderPainted(false);
-        btnReturn1.addMouseListener(this);
+        btnReturn1.setEnabled(false);
         tripTrackingPanel.add(btnReturn1);
 
         // Second highway
@@ -142,7 +154,6 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         // Crea un JLabel para mostrar la imagen
         highway2 = new JLabel(adjustedImageHighway2Icon);
         highway2.setBounds(50, 280, 700, 80); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
-        highway2.addMouseListener(this);
         tripTrackingPanel.add(highway2);
 
         btnInitDriver2 = new JButton("Iniciar");
@@ -152,7 +163,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         btnInitDriver2.setFont(new Font(btnInitDriver2.getFont().getFontName(), Font.BOLD, 13));
         btnInitDriver2.setOpaque(true);
         btnInitDriver2.setBorderPainted(false);
-        btnInitDriver2.addMouseListener(this);
+        btnInitDriver2.setEnabled(false);
         tripTrackingPanel.add(btnInitDriver2);
 
         btnReturn2 = new JButton("Regresar");
@@ -162,7 +173,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         btnReturn2.setFont(new Font(btnReturn2.getFont().getFontName(), Font.BOLD, 13));
         btnReturn2.setOpaque(true);
         btnReturn2.setBorderPainted(false);
-        btnReturn2.addMouseListener(this);
+        btnReturn2.setEnabled(false);
         tripTrackingPanel.add(btnReturn2);
 
         // Third highway
@@ -175,7 +186,6 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         // Crea un JLabel para mostrar la imagen
         highway3 = new JLabel(adjustedImageHighway3Icon);
         highway3.setBounds(50, 450, 700, 80); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
-        highway3.addMouseListener(this);
         tripTrackingPanel.add(highway3);
 
         btnInitDriver3 = new JButton("Iniciar");
@@ -185,7 +195,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         btnInitDriver3.setFont(new Font(btnInitDriver3.getFont().getFontName(), Font.BOLD, 13));
         btnInitDriver3.setOpaque(true);
         btnInitDriver3.setBorderPainted(false);
-        btnInitDriver3.addMouseListener(this);
+        btnInitDriver3.setEnabled(false);
         tripTrackingPanel.add(btnInitDriver3);
 
         btnReturn3 = new JButton("Regresar");
@@ -195,7 +205,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         btnReturn3.setFont(new Font(btnReturn3.getFont().getFontName(), Font.BOLD, 13));
         btnReturn3.setOpaque(true);
         btnReturn3.setBorderPainted(false);
-        btnReturn3.addMouseListener(this);
+        btnReturn3.setEnabled(false);
         tripTrackingPanel.add(btnReturn3);
 
 
@@ -218,11 +228,12 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         if(!Main.anyTripOnGoing())
             return;
 
-        System.out.println("Rendering");
-
         // Render first trip
         if(Main.getOnGoingTrips()[0] != null){
+            btnInitDriver1.setEnabled(true);
+            btnInitDriver1.addMouseListener(this);
             btnReturn1.setEnabled(false);
+
 
             labelInitialPointInfo1 = new JLabel(
                     "<html>" +
@@ -273,7 +284,10 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
         // Render second trip
         if(Main.getOnGoingTrips()[1] != null){
-            btnReturn2.setEnabled(false);
+            btnInitDriver2.setEnabled(true);
+            btnInitDriver2.addMouseListener(this);
+            btnReturn3.setEnabled(false);
+
 
             labelInitialPointInfo2 = new JLabel(
                     "<html>" +
@@ -323,6 +337,8 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
         // Render third trip
         if(Main.getOnGoingTrips()[2] != null){
+            btnInitDriver3.setEnabled(true);
+            btnInitDriver3.addMouseListener(this);
             btnReturn3.setEnabled(false);
 
             labelInitialPointInfo3 = new JLabel(
@@ -398,27 +414,22 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             dashboardView.setVisible(true);
             dispose();
         } else if (e.getSource() == btnInitDriver1) {
-            Clock clock = new Clock(this);
-            clock.start();
-//            MotorcycleThread motorcycleThread = new MotorcycleThread(this);
-//            motorcycleThread.start();
-//            item = lbl1.getBounds();
-//
-//            moto = new Moto(this.game, this, this.reloj);
-//            moto.start();
-//            try {
-//                motorcycleThread.start();
-//                while (runningVehicle1) {
-//                    this.btnInitDriver1.setEnabled(false);
-//                }
-//            } catch (Exception ex) {
-//                System.out.println(ex);
-//            }
-        }
-    }
+            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, "go");
+            trackingMotorcycleThread.start();
+        } else if (e.getSource() == btnInitDriver2) {
 
-    public void stopVehicle1Thread() {
-        runningVehicle1 = false;
+        } else if (e.getSource() == btnInitDriver3) {
+
+        } else if (e.getSource() == btnReturn1) {
+            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, "return");
+            trackingMotorcycleThread.start();
+        } else if (e.getSource() == btnReturn2) {
+            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, "return");
+            trackingMotorcycleThread.start();
+        } else if (e.getSource() == btnReturn3) {
+            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, "return");
+            trackingMotorcycleThread.start();
+        }
     }
 
     @Override

@@ -101,7 +101,7 @@ public class TripsGenerateTripView extends JFrame implements MouseListener {
         labelVehicle.setFont(new Font(labelVehicle.getFont().getFontName(), Font.PLAIN, 14));
         labelVehicle.setVisible(true);
         generatePanelTrip.add(labelVehicle);
-        comboVehicles = new JComboBox(VehiclesController.getVehicles(""));
+        comboVehicles = new JComboBox(VehiclesController.getVehiclesAvailable());
         comboVehicles.setBounds(50,200, 150, 30);
         comboVehicles.setVisible(true);
         comboVehicles.addMouseListener(this);
@@ -144,12 +144,28 @@ public class TripsGenerateTripView extends JFrame implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getSource() == btnGenerateTrip){
-            Vehicle vehicle = new Vehicle(selectedVehicle);
+
+            if(selectedStartingPoint == null){
+                JOptionPane.showMessageDialog(null, "Elija un punto inicial", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if(selectedFinalPoint == null){
+                JOptionPane.showMessageDialog(null, "Elija un punto final", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if(selectedVehicle == null){
+                JOptionPane.showMessageDialog(null, "Elija un vehiculo", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            VehiclesController vehiclesController = new VehiclesController(selectedVehicle);
 
             TripsController tripsController = new TripsController();
             tripsController.create(
                     Main.generateId("trip"),
-                    vehicle,
+                    vehiclesController.getVehicle(),
                     selectedStartingPoint,
                     selectedFinalPoint,
                     "En curso"
@@ -165,6 +181,8 @@ public class TripsGenerateTripView extends JFrame implements MouseListener {
             );
 
             Main.addTripToQueue(tripsController.getTrip());
+
+            VehiclesController.makeVehicleBusy(tripsController.getTrip().getVehicle().getName());
 
             TripsTrackingView tripsTrackingView = new TripsTrackingView();
             tripsTrackingView.setVisible(true);

@@ -81,7 +81,7 @@ public class RoutesController {
                 points.add(Main.getRoutes().get(i - Main.getRoutes().size()).getFinalPoint());
             }
         }
-        System.out.println(removeRoute);
+
         if(!removeRoute.isEmpty()) {
             for (int i = 0; i < points.size(); i++) {
                 if (points.get(i).equals(removeRoute)) {
