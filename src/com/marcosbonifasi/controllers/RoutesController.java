@@ -28,7 +28,7 @@ public class RoutesController {
     }
 
     public boolean found(){
-        return !Integer.toString(this.route.getId()).isEmpty();
+        return this.route != null;
     }
 
     private void load(String startingPoint){

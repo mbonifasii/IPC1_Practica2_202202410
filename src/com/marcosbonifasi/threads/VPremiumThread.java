@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class VPremiumThread extends Thread {
 
-    int xVehicle, yVehicle, xInfo, yInfo;
+    float xVehicle, yVehicle, xInfo, yInfo;
     private volatile boolean runningVehicle3 = true;
     private TripsTrackingView tripsTrackingView;
     private TrackingVPremiumThread trackingVPremiumThread;
@@ -26,28 +26,28 @@ public class VPremiumThread extends Thread {
     public void run(){
         try{
             while(runningVehicle3){
-                sleep((int) (750/this.trackingVPremiumThread.trip.getDistance())*10); // this should be according to the distance
+                sleep((int) (600/(15/this.trackingVPremiumThread.trip.getDistance()))); // this should be according to the distance
 
                 if(this.trackingVPremiumThread.tripType.equals("go")){
-                    this.xVehicle-=8;
-                    this.xInfo -=8;
+                    this.xVehicle-=600.0f/this.trackingVPremiumThread.trip.getDistance();
+                    this.xInfo -=600.0f/this.trackingVPremiumThread.trip.getDistance();
                 } else if(this.trackingVPremiumThread.tripType.equals("return")){
-                    this.xVehicle+=8;
-                    this.xInfo+=8;
+                    this.xVehicle+=600.0f/this.trackingVPremiumThread.trip.getDistance();
+                    this.xInfo+=600.0f/this.trackingVPremiumThread.trip.getDistance();
                 }
 
-
                 int initKm = (int) Math.floor(this.trackingVPremiumThread.trip.getHistory().getDistanceTraveled());
-                int finalKm = (int) Math.floor(this.trackingVPremiumThread.trip.getHistory().getDistanceTraveled() + (this.trackingVPremiumThread.trip.getDistance()/750.0f)*10f);
+//                int finalKm = (int) Math.floor(this.trackingVPremiumThread.trip.getHistory().getDistanceTraveled() + ((this.trackingVPremiumThread.trip.getDistance()/750.0f) * 10.0f));
+                int finalKm = (int) Math.floor(this.trackingVPremiumThread.trip.getHistory().getDistanceTraveled() + ((600.0f/this.trackingVPremiumThread.trip.getDistance()) * this.trackingVPremiumThread.trip.getDistance())/600.0f);
 
-                if((finalKm - initKm) == 1.0) {
+                if((finalKm - initKm) == 1.0f) {
                     this.trackingVPremiumThread.trip.getVehicle().setGasoline(this.trackingVPremiumThread.trip.getVehicle().getGasoline() - 0.1f);
                     this.trackingVPremiumThread.trip.getHistory().setGasolineConsumed(this.trackingVPremiumThread.trip.getHistory().getGasolineConsumed() + 0.1f);
                 }
 
-                this.tripsTrackingView.labelVehicle3.setLocation(xVehicle, yVehicle);
-                this.tripsTrackingView.labelCurrentInfo3.setLocation(xInfo, yInfo);
-                this.trackingVPremiumThread.trip.getHistory().setDistanceTraveled(((this.trackingVPremiumThread.trip.getDistance()/750.0f)*10.0f));
+                this.tripsTrackingView.labelVehicle3.setLocation((int) Math.floor(xVehicle), (int )Math.floor(yVehicle));
+                this.tripsTrackingView.labelCurrentInfo3.setLocation((int) Math.floor(xInfo), (int) Math.floor(yInfo));
+                this.trackingVPremiumThread.trip.getHistory().setDistanceTraveled((600.0f/this.trackingVPremiumThread.trip.getDistance()) * this.trackingVPremiumThread.trip.getDistance()/600.0f);
 
                 this.tripsTrackingView.labelCurrentInfo3.setText(
                         "<html>" +
@@ -82,15 +82,15 @@ public class VPremiumThread extends Thread {
                 }
 
 
-                if (this.tripsTrackingView.labelVehicle3.getX() == 600)
+                if (this.tripsTrackingView.labelVehicle3.getX() >= 600.0f)
                     this.trackingVPremiumThread.trip.getHistory().setStatus("finalized");
 
-                if (this.tripsTrackingView.labelVehicle3.getX() == 0 || this.tripsTrackingView.labelVehicle3.getX() == 600) {
+                if (this.tripsTrackingView.labelVehicle3.getX() <= 0.0f || this.tripsTrackingView.labelVehicle3.getX() >= 600.0f) {
                     this.stopThread();
                     this.trackingVPremiumThread.stopClockThread();
                 }
 
-                if (this.tripsTrackingView.labelVehicle3.getX() == 0){
+                if (this.tripsTrackingView.labelVehicle3.getX() <= 0.0f){
                     this.tripsTrackingView.btnInitDriver3.setEnabled(false);
                     this.tripsTrackingView.btnInitDriver3.removeMouseListener(this.tripsTrackingView);
                     this.tripsTrackingView.btnReturn3.setEnabled(true);

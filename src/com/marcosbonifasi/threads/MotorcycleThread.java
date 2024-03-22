@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class MotorcycleThread extends Thread {
 
-    int xVehicle, yVehicle, xInfo, yInfo;
+    float xVehicle, yVehicle, xInfo, yInfo;
     private volatile boolean runningVehicle1 = true;
     private TripsTrackingView tripsTrackingView;
     private TrackingMotorcycleThread trackingMotorcycleThread;
@@ -26,28 +26,28 @@ public class MotorcycleThread extends Thread {
     public void run(){
         try{
             while(runningVehicle1){
-                sleep((int) (750/this.trackingMotorcycleThread.trip.getDistance())*10); // this should be according to the distance
+                sleep((int) (600/(10/this.trackingMotorcycleThread.trip.getDistance()))); // this should be according to the distance
 
                 if(this.trackingMotorcycleThread.tripType.equals("go")){
-                    this.xVehicle-=8;
-                    this.xInfo -=8;
+                    this.xVehicle-=600.0f/this.trackingMotorcycleThread.trip.getDistance();
+                    this.xInfo -=600.0f/this.trackingMotorcycleThread.trip.getDistance();
                 } else if(this.trackingMotorcycleThread.tripType.equals("return")){
-                    this.xVehicle+=8;
-                    this.xInfo+=8;
+                    this.xVehicle+=600.0f/this.trackingMotorcycleThread.trip.getDistance();
+                    this.xInfo+=600.0f/this.trackingMotorcycleThread.trip.getDistance();
                 }
 
 
                 int initKm = (int) Math.floor(this.trackingMotorcycleThread.trip.getHistory().getDistanceTraveled());
-                int finalKm = (int) Math.floor(this.trackingMotorcycleThread.trip.getHistory().getDistanceTraveled() + (this.trackingMotorcycleThread.trip.getDistance()/750.0f)*10f);
+                int finalKm = (int) Math.floor(this.trackingMotorcycleThread.trip.getHistory().getDistanceTraveled() + ((600.0f/this.trackingMotorcycleThread.trip.getDistance()) * this.trackingMotorcycleThread.trip.getDistance())/600.0f);
 
-                if((finalKm - initKm) == 1.0) {
+                if((finalKm - initKm) == 1.0f) {
                     this.trackingMotorcycleThread.trip.getVehicle().setGasoline(this.trackingMotorcycleThread.trip.getVehicle().getGasoline() - 0.1f);
                     this.trackingMotorcycleThread.trip.getHistory().setGasolineConsumed(this.trackingMotorcycleThread.trip.getHistory().getGasolineConsumed() + 0.1f);
                 }
 
-                this.tripsTrackingView.labelVehicle1.setLocation(xVehicle, yVehicle);
-                this.tripsTrackingView.labelCurrentInfo1.setLocation(xInfo, yInfo);
-                this.trackingMotorcycleThread.trip.getHistory().setDistanceTraveled(((this.trackingMotorcycleThread.trip.getDistance()/750.0f)*10.0f));
+                this.tripsTrackingView.labelVehicle1.setLocation((int) Math.floor(xVehicle), (int )Math.floor(yVehicle));
+                this.tripsTrackingView.labelCurrentInfo1.setLocation((int) Math.floor(xInfo), (int) Math.floor(yInfo));
+                this.trackingMotorcycleThread.trip.getHistory().setDistanceTraveled((600.0f/this.trackingMotorcycleThread.trip.getDistance()) * this.trackingMotorcycleThread.trip.getDistance()/600.0f);
 
                 this.tripsTrackingView.labelCurrentInfo1.setText(
                         "<html>" +
@@ -82,15 +82,15 @@ public class MotorcycleThread extends Thread {
                 }
 
 
-                if (this.tripsTrackingView.labelVehicle1.getX() == 600)
+                if (this.tripsTrackingView.labelVehicle1.getX() >= 600.0f)
                     this.trackingMotorcycleThread.trip.getHistory().setStatus("finalized");
 
-                if (this.tripsTrackingView.labelVehicle1.getX() == 0 || this.tripsTrackingView.labelVehicle1.getX() == 600) {
+                if (this.tripsTrackingView.labelVehicle1.getX() <= 0 || this.tripsTrackingView.labelVehicle1.getX() >= 600) {
                     this.stopThread();
                     this.trackingMotorcycleThread.stopClockThread();
                 }
 
-                if (this.tripsTrackingView.labelVehicle1.getX() == 0){
+                if (this.tripsTrackingView.labelVehicle1.getX() <= 0){
                     this.tripsTrackingView.btnInitDriver1.setEnabled(false);
                     this.tripsTrackingView.btnInitDriver1.removeMouseListener(this.tripsTrackingView);
                     this.tripsTrackingView.btnReturn1.setEnabled(true);

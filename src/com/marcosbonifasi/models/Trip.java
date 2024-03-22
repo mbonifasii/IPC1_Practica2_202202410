@@ -5,6 +5,7 @@ import com.marcosbonifasi.Main;
 public class Trip {
 
     private int id;
+    private String startingPoint, finalPoint;
     private String status;
     private Vehicle vehicle;
     private Route route;

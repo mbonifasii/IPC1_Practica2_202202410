@@ -4,6 +4,8 @@ import com.marcosbonifasi.controllers.RoutesController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -47,6 +49,15 @@ public class RouteEditView extends JFrame implements MouseListener {
         fieldId.setVisible(true);
         panelRoute.add(fieldId);
 
+        fieldId.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+                    e.consume();
+                }
+            }
+        });
+
         labelDistance = new JLabel("Distancia");
         labelDistance.setBounds(50, 100, 100, 30);
         labelDistance.setFont(new Font(labelId.getFont().getFontName(), Font.PLAIN, 18));
@@ -56,6 +67,15 @@ public class RouteEditView extends JFrame implements MouseListener {
         fieldDistance.setBounds(160, 100, 160, 30);
         fieldDistance.setVisible(true);
         panelRoute.add(fieldDistance);
+
+        fieldDistance.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+                    e.consume();
+                }
+            }
+        });
 
         btnCancel = new JButton("Cancelar");
         btnCancel.setBounds(50, 180, 130, 30);

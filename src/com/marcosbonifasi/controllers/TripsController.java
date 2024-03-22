@@ -9,6 +9,7 @@ import com.marcosbonifasi.models.Vehicle;
 public class TripsController {
 
     private Trip trip;
+    private String startingPoint, finalPoint;
 
     public TripsController(){}
 
