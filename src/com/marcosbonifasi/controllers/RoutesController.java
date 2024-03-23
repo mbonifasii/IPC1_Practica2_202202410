@@ -16,7 +16,8 @@ public class RoutesController {
         loadById(id);
     }
     public RoutesController(String startingPoint){
-        load(startingPoint);
+
+//        load(startingPoint);
     }
 
     public RoutesController(String startingPoint, String finalPoint, float distance){
@@ -31,12 +32,12 @@ public class RoutesController {
         return this.route != null;
     }
 
-    private void load(String startingPoint){
-        int[] existence = validateExistence(startingPoint);
-
-        if(existence[0] == 1)
-            this.route = Main.getRoutes().get(existence[1]);
-    }
+//    private void load(String startingPoint){
+//        int[] existence = validateExistence(startingPoint);
+//
+//        if(existence[0] == 1)
+//            this.route = Main.getRoutes().get(existence[1]);
+//    }
 
     private void loadById(int id){
         int[] existence = validateExistenceById(id);
@@ -45,19 +46,37 @@ public class RoutesController {
             this.route = Main.getRoutes().get(existence[1]);
     }
 
-    public int[] validateExistence(String startingPoint){
-        int[] existence = new int[2];
+//    public int[] validateExistence(String startingPoint){
+//        int[] existence = new int[2];
+//
+//        // Find the doctor according to the code
+//        for (int i = 0; i < Main.getRoutes().size(); i++) {
+//            if(Main.getRoutes().get(i).getStartingPoint().equals(startingPoint) || Main.getRoutes().get(i).getFinalPoint().equals(startingPoint)){
+//                existence[0] = 1;
+//                existence[1] = i;
+//                break;
+//            }
+//        }
+//
+//        return existence;
+//    }
 
-        // Find the doctor according to the code
+    public static String[] getPointsRoute(String point){
+        String[] pointsRoute = new String[2];
+
         for (int i = 0; i < Main.getRoutes().size(); i++) {
-            if(Main.getRoutes().get(i).getStartingPoint().equals(startingPoint) || Main.getRoutes().get(i).getFinalPoint().equals(startingPoint)){
-                existence[0] = 1;
-                existence[1] = i;
+            if(point.equals(Main.getRoutes().get(i).getStartingPoint())){
+                pointsRoute[0] = Main.getRoutes().get(i).getStartingPoint();
+                pointsRoute[1] = Main.getRoutes().get(i).getFinalPoint();
+                break;
+            } else if (point.equals(Main.getRoutes().get(i).getFinalPoint())) {
+                pointsRoute[0] = Main.getRoutes().get(i).getFinalPoint();
+                pointsRoute[1] = Main.getRoutes().get(i).getStartingPoint();
                 break;
             }
         }
 
-        return existence;
+        return pointsRoute;
     }
 
     public int[] validateExistenceById(int id){

@@ -232,7 +232,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
                     "<br>" +
                     "Distancia " + Main.getOnGoingTrips()[0].getDistance() + "km" +
                     "<br>" +
-                    "Destino " + Main.getOnGoingTrips()[0].getRoute().getFinalPoint() +
+                    "Destino " + Main.getOnGoingTrips()[0].getFinalPoint() +
                     "</html>"
             );
 
@@ -243,7 +243,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
             labelFinalPointInfo1 = new JLabel(
                     "<html>" +
-                    "Inicio " + Main.getOnGoingTrips()[0].getRoute().getStartingPoint()+
+                    "Inicio " + Main.getOnGoingTrips()[0].getStartingPoint()+
                     "</html>"
             );
 
@@ -301,7 +301,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
                             "<br>" +
                             "Distancia " + Main.getOnGoingTrips()[1].getDistance() + "km" +
                             "<br>" +
-                            "Destino " + Main.getOnGoingTrips()[1].getRoute().getFinalPoint() +
+                            "Destino " + Main.getOnGoingTrips()[1].getFinalPoint() +
                             "</html>"
             );
 
@@ -312,7 +312,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
             labelFinalPointInfo2 = new JLabel(
                     "<html>" +
-                            "Inicio " + Main.getOnGoingTrips()[1].getRoute().getStartingPoint()+
+                            "Inicio " + Main.getOnGoingTrips()[1].getStartingPoint()+
                             "</html>"
             );
 
@@ -367,7 +367,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
                             "<br>" +
                             "Distancia " + Main.getOnGoingTrips()[2].getDistance() + "km" +
                             "<br>" +
-                            "Destino " + Main.getOnGoingTrips()[2].getRoute().getFinalPoint() +
+                            "Destino " + Main.getOnGoingTrips()[2].getFinalPoint() +
                             "</html>"
             );
 
@@ -378,7 +378,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
             labelFinalPointInfo3= new JLabel(
                     "<html>" +
-                            "Inicio " + Main.getOnGoingTrips()[2].getRoute().getStartingPoint() +
+                            "Inicio " + Main.getOnGoingTrips()[2].getStartingPoint() +
                             "</html>"
             );
 

@@ -8,14 +8,14 @@ public class Trip {
     private String startingPoint, finalPoint;
     private String status;
     private Vehicle vehicle;
-    private Route route;
     private History history;
 
     public Trip(){}
-    public Trip(int id, Vehicle vehicle, Route route, String status){
+    public Trip(int id, Vehicle vehicle, String startingPoint, String finalPoint, String status){
         this.id = id;
         this.vehicle = vehicle;
-        this.route = route;
+        this.startingPoint = startingPoint;
+        this.finalPoint = finalPoint;
         this.status = status;
     }
 
@@ -48,7 +48,7 @@ public class Trip {
         float distance = 0.0f;
 
         for (int i = 0; i < Main.getRoutes().size(); i++) {
-            if (Main.getRoutes().get(i).getStartingPoint().equals(this.route.getStartingPoint()) || Main.getRoutes().get(i).getFinalPoint().equals(this.route.getStartingPoint())){
+            if (Main.getRoutes().get(i).getStartingPoint().equals(this.getStartingPoint()) || Main.getRoutes().get(i).getFinalPoint().equals(this.getStartingPoint())){
                 distance = Main.getRoutes().get(i).getDistance();
                 break;
             }
@@ -57,19 +57,27 @@ public class Trip {
         return distance;
     }
 
-    public Route getRoute() {
-        return route;
-    }
-
-    public void setRoute(Route route) {
-        this.route = route;
-    }
-
     public History getHistory() {
         return history;
     }
 
     public void setHistory(History history) {
         this.history = history;
+    }
+
+    public String getStartingPoint() {
+        return startingPoint;
+    }
+
+    public void setStartingPoint(String startingPoint) {
+        this.startingPoint = startingPoint;
+    }
+
+    public String getFinalPoint() {
+        return finalPoint;
+    }
+
+    public void setFinalPoint(String finalPoint) {
+        this.finalPoint = finalPoint;
     }
 }

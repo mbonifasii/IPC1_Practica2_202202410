@@ -8,7 +8,7 @@ public class History extends Trip{
     public History(){}
 
     public History(Trip trip, String initialDatetime, String finalDatetime, float distanceTraveled, float gasolineConsumed){
-        super(trip.getId(), trip.getVehicle(), trip.getRoute(), trip.getStatus());
+        super(trip.getId(), trip.getVehicle(), trip.getStartingPoint(), trip.getFinalPoint(), trip.getStatus());
         this.initialDatetime = initialDatetime;
         this.finalDatetime = finalDatetime;
         this.distanceTraveled = distanceTraveled;

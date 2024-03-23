@@ -9,15 +9,15 @@ import com.marcosbonifasi.models.Vehicle;
 public class TripsController {
 
     private Trip trip;
-    private String startingPoint, finalPoint;
 
     public TripsController(){}
 
-    public void create(int id, Vehicle vehicle, Route route, String status){
+    public void create(int id, Vehicle vehicle, String startingPoint, String finalPoint, String status){
         this.trip = new Trip(
             id,
             vehicle,
-            route,
+            startingPoint,
+            finalPoint,
             status
         );
 
