@@ -82,9 +82,11 @@ public class MotorcycleThread extends Thread {
                 }
 
 
-                if (this.tripsTrackingView.labelVehicle1.getX() >= 600.0f)
+                if (this.tripsTrackingView.labelVehicle1.getX() >= 600.0f) {
                     this.trackingMotorcycleThread.trip.getHistory().setStatus("finalized");
-
+                    this.tripsTrackingView.btnReturn1.setEnabled(false);
+                    this.tripsTrackingView.btnReturn1.removeMouseListener(this.tripsTrackingView);
+                }
                 if (this.tripsTrackingView.labelVehicle1.getX() <= 0 || this.tripsTrackingView.labelVehicle1.getX() >= 600) {
                     this.stopThread();
                     this.trackingMotorcycleThread.stopClockThread();

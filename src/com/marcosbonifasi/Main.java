@@ -39,6 +39,9 @@ public class Main {
     public static ArrayList<Route> getRoutes(){
         return routes;
     }
+    public static ArrayList<History> getHistories(){
+        return histories;
+    }
     public static ArrayList<Vehicle> getVehiclesAvailable(){
         return vehiclesAvailable;
     }
