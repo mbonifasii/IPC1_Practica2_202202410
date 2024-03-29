@@ -26,7 +26,7 @@ public class MotorcycleThread extends Thread {
     public void run(){
         try{
             while(runningVehicle1){
-                sleep((int) (600/(10/this.trackingMotorcycleThread.trip.getDistance()))); // this should be according to the distance
+                sleep((int) (600/(15/this.trackingMotorcycleThread.trip.getDistance()))); // this should be according to the distance
 
                 if(this.trackingMotorcycleThread.tripType.equals("go")){
                     this.xVehicle-=600.0f/this.trackingMotorcycleThread.trip.getDistance();

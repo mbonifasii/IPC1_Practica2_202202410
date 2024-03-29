@@ -448,11 +448,12 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             dashboardView.setVisible(true);
             dispose();
         } else if (e.getSource() == btnInitDriver1) {
-            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[0], "go");
-            trackingMotorcycleThread.start();
-
-            Main.getOnGoingTrips()[0].getHistory().setInitialDatetime(LocalDateTime.now().toString());
-            Main.getOnGoingTrips()[0].getHistory().setStatus("go");
+//            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[0], "go");
+//            trackingMotorcycleThread.start();
+//
+//            Main.getOnGoingTrips()[0].getHistory().setInitialDatetime(LocalDateTime.now().toString());
+//            Main.getOnGoingTrips()[0].getHistory().setStatus("go");
+            Main.goVehicle1(this);
 
         } else if (e.getSource() == btnInitDriver2) {
             TrackingVStandardThread trackingVStandardThread = new TrackingVStandardThread(this, Main.getOnGoingTrips()[1], "go");

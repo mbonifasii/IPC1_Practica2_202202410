@@ -5,12 +5,18 @@ import com.marcosbonifasi.models.History;
 import com.marcosbonifasi.models.Route;
 import com.marcosbonifasi.models.Trip;
 import com.marcosbonifasi.models.Vehicle;
+import com.marcosbonifasi.threads.TrackingMotorcycleThread;
 import com.marcosbonifasi.views.DashboardView;
+import com.marcosbonifasi.views.trips.TripsTrackingView;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Main {
@@ -120,4 +126,34 @@ public class Main {
     public static Trip[] getOnGoingTrips(){
         return onGoingTrips;
     }
+
+    // Threads
+
+    public static void goVehicle1(TripsTrackingView tripsTrackingView){
+        TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(tripsTrackingView, Main.getOnGoingTrips()[0], "go");
+        trackingMotorcycleThread.start();
+
+        getOnGoingTrips()[0].getHistory().setInitialDatetime(LocalDateTime.now().toString());
+        getOnGoingTrips()[0].getHistory().setStatus("go");
+    }
+
+    // Serialization
+
+    public static void createBinaryFile() {
+        // Serialización de la lista
+        try {
+            // Creamos el archivo binario en la ruta especificada
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("./Archivos/Animals.bin"));
+            // Escribimos nuestro ArrayList de tipo Animal
+//            out.writeObject(animals);
+            // Cerramos el archivo
+            out.close();
+            System.out.println("Binario escrito correctamente :)");
+        } catch (IOException e) {
+            System.out.println("Something went wrong :(");
+            e.printStackTrace();
+        }
+        System.out.println("***********************************************************************");
+    }
+
 }

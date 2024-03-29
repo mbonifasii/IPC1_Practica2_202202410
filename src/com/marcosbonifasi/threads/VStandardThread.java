@@ -26,7 +26,7 @@ public class VStandardThread extends Thread {
     public void run(){
         try{
             while(runningVehicle2){
-                sleep((int) (600/(10/this.trackingVStandardThread.trip.getDistance()))); // this should be according to the distance
+                sleep((int) (600/(15/this.trackingVStandardThread.trip.getDistance()))); // this should be according to the distance
 
                 if(this.trackingVStandardThread.tripType.equals("go")){
                     this.xVehicle-=600.0f/this.trackingVStandardThread.trip.getDistance();
