@@ -36,22 +36,22 @@ public class VPremiumThread extends Thread {
                     this.xInfo+=600.0f/this.trackingVPremiumThread.trip.getDistance();
                 }
 
-                int initKm = (int) Math.floor(this.trackingVPremiumThread.trip.getHistory().getDistanceTraveled());
-//                int finalKm = (int) Math.floor(this.trackingVPremiumThread.trip.getHistory().getDistanceTraveled() + ((this.trackingVPremiumThread.trip.getDistance()/750.0f) * 10.0f));
-                int finalKm = (int) Math.floor(this.trackingVPremiumThread.trip.getHistory().getDistanceTraveled() + ((600.0f/this.trackingVPremiumThread.trip.getDistance()) * this.trackingVPremiumThread.trip.getDistance())/600.0f);
+                int initKm = (int) Math.floor(this.trackingVPremiumThread.trip.getDistanceTraveled());
+//                int finalKm = (int) Math.floor(this.trackingVPremiumThread.trip.getDistanceTraveled() + ((this.trackingVPremiumThread.trip.getDistance()/750.0f) * 10.0f));
+                int finalKm = (int) Math.floor(this.trackingVPremiumThread.trip.getDistanceTraveled() + ((600.0f/this.trackingVPremiumThread.trip.getDistance()) * this.trackingVPremiumThread.trip.getDistance())/600.0f);
 
                 if((finalKm - initKm) == 1.0f) {
                     this.trackingVPremiumThread.trip.getVehicle().setGasoline(this.trackingVPremiumThread.trip.getVehicle().getGasoline() - 0.1f);
-                    this.trackingVPremiumThread.trip.getHistory().setGasolineConsumed(this.trackingVPremiumThread.trip.getHistory().getGasolineConsumed() + 0.1f);
+                    this.trackingVPremiumThread.trip.setGasolineConsumed(this.trackingVPremiumThread.trip.getGasolineConsumed() + 0.1f);
                 }
 
                 this.tripsTrackingView.labelVehicle3.setLocation((int) Math.floor(xVehicle), (int )Math.floor(yVehicle));
                 this.tripsTrackingView.labelCurrentInfo3.setLocation((int) Math.floor(xInfo), (int) Math.floor(yInfo));
-                this.trackingVPremiumThread.trip.getHistory().setDistanceTraveled((600.0f/this.trackingVPremiumThread.trip.getDistance()) * this.trackingVPremiumThread.trip.getDistance()/600.0f);
+                this.trackingVPremiumThread.trip.setDistanceTraveled((600.0f/this.trackingVPremiumThread.trip.getDistance()) * this.trackingVPremiumThread.trip.getDistance()/600.0f);
 
                 this.tripsTrackingView.labelCurrentInfo3.setText(
                         "<html>" +
-                                "Recorrido " + this.trackingVPremiumThread.trip.getHistory().getDistanceTraveled() +
+                                "Recorrido " + this.trackingVPremiumThread.trip.getDistanceTraveled() +
                                 "<br>" +
                                 "Gasolina " + this.trackingVPremiumThread.trip.getVehicle().getGasoline() +
                                 "</html>"
@@ -83,7 +83,7 @@ public class VPremiumThread extends Thread {
 
 
                 if (this.tripsTrackingView.labelVehicle3.getX() >= 600.0f)
-                    this.trackingVPremiumThread.trip.getHistory().setStatus("finalized");
+                    this.trackingVPremiumThread.trip.setStatus("finalized");
 
                 if (this.tripsTrackingView.labelVehicle3.getX() <= 0.0f || this.tripsTrackingView.labelVehicle3.getX() >= 600.0f) {
                     this.stopThread();

@@ -11,6 +11,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.time.LocalDateTime;
 
 public class TripsTrackingView extends JFrame implements MouseListener {
@@ -42,6 +44,19 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
         initTripTrackingPanel();
         renderTrips();
+
+        // Adding a WindowListener to capture window closing event
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Create binary file
+                Main.createBinaryFile();
+
+                // Handle the window closing event
+                System.out.println("Application is closing...");
+                System.exit(0); // This exits the application
+            }
+        });
     }
 
     private void initTripTrackingPanel(){
@@ -228,7 +243,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
             labelInitialPointInfo1 = new JLabel(
                     "<html>" +
-                    Main.getOnGoingTrips()[0].getVehicle().getName() +
+                    Main.getOnGoingTrips()[0].getVehicleName() +
                     "<br>" +
                     "Distancia " + Main.getOnGoingTrips()[0].getDistance() + "km" +
                     "<br>" +
@@ -255,7 +270,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             this.labelVehicle1 = new JLabel();
             this.labelVehicle1.setBounds(600, 30, 100, 50); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
             ImageIcon img1 = new ImageIcon(
-                getClass().getResource("../../images/" + selectedImageVehicle(Main.getOnGoingTrips()[0].getVehicle().getName()))
+                getClass().getResource("../../images/" + selectedImageVehicle(Main.getOnGoingTrips()[0].getVehicleName()))
             );
             Image nuevo1 = img1.getImage().getScaledInstance(100, 80, Image.SCALE_DEFAULT);
             this.labelVehicle1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -271,7 +286,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
             labelCurrentInfo1 = new JLabel(
                 "<html>" +
-                "Recorrido " + Main.getOnGoingTrips()[0].getHistory().getDistanceTraveled() +
+                "Recorrido " + Main.getOnGoingTrips()[0].getDistanceTraveled() +
                 "<br>" +
                 "Gasolina " + Main.getOnGoingTrips()[0].getVehicle().getGasoline() +
                 "</html>"
@@ -339,7 +354,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
             labelCurrentInfo2 = new JLabel(
                     "<html>" +
-                            "Recorrido " + Main.getOnGoingTrips()[1].getHistory().getDistanceTraveled() +
+                            "Recorrido " + Main.getOnGoingTrips()[1].getDistanceTraveled() +
                             "<br>" +
                             "Gasolina " + Main.getOnGoingTrips()[1].getVehicle().getGasoline() +
                             "</html>"
@@ -405,7 +420,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
             labelCurrentInfo3 = new JLabel(
                     "<html>" +
-                            "Recorrido " + Main.getOnGoingTrips()[2].getHistory().getDistanceTraveled() +
+                            "Recorrido " + Main.getOnGoingTrips()[2].getDistanceTraveled() +
                             "<br>" +
                             "Gasolina " + Main.getOnGoingTrips()[2].getVehicle().getGasoline() +
                             "</html>"
@@ -459,29 +474,29 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             TrackingVStandardThread trackingVStandardThread = new TrackingVStandardThread(this, Main.getOnGoingTrips()[1], "go");
             trackingVStandardThread.start();
 
-            Main.getOnGoingTrips()[1].getHistory().setInitialDatetime(LocalDateTime.now().toString());
-            Main.getOnGoingTrips()[1].getHistory().setStatus("go");
+            Main.getOnGoingTrips()[1].setInitialDatetime(LocalDateTime.now().toString());
+            Main.getOnGoingTrips()[1].setStatus("go");
         } else if (e.getSource() == btnInitDriver3) {
             TrackingVPremiumThread trackingVPremiumThread = new TrackingVPremiumThread(this, Main.getOnGoingTrips()[2], "go");
             trackingVPremiumThread.start();
 
-            Main.getOnGoingTrips()[2].getHistory().setInitialDatetime(LocalDateTime.now().toString());
-            Main.getOnGoingTrips()[2].getHistory().setStatus("go");
+            Main.getOnGoingTrips()[2].setInitialDatetime(LocalDateTime.now().toString());
+            Main.getOnGoingTrips()[2].setStatus("go");
         } else if (e.getSource() == btnReturn1) {
             TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[0],"return");
-            Main.getOnGoingTrips()[0].getHistory().setStatus("return");
+            Main.getOnGoingTrips()[0].setStatus("return");
             trackingMotorcycleThread.start();
         } else if (e.getSource() == btnReturn2) {
             TrackingVStandardThread trackingVStandardThread = new TrackingVStandardThread(this, Main.getOnGoingTrips()[1],"return");
-            Main.getOnGoingTrips()[1].getHistory().setStatus("return");
+            Main.getOnGoingTrips()[1].setStatus("return");
             trackingVStandardThread.start();
         } else if (e.getSource() == btnReturn3) {
             TrackingVPremiumThread trackingVPremiumThread = new TrackingVPremiumThread(this, Main.getOnGoingTrips()[2],"return");
-            Main.getOnGoingTrips()[2].getHistory().setStatus("return");
+            Main.getOnGoingTrips()[2].setStatus("return");
             trackingVPremiumThread.start();
         } else if (e.getSource() == btnRefillTank1) {
             TrackingMotorcycleThread trackingMotorcycleThread;
-            trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[0], Main.getOnGoingTrips()[0].getHistory().getStatus());
+            trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[0], Main.getOnGoingTrips()[0].getStatus());
             Main.getOnGoingTrips()[0].getVehicle().setGasoline(6.0f);
             trackingMotorcycleThread.start();
             btnRefillTank1.setVisible(false);
@@ -489,7 +504,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             btnRefillTank1.removeMouseListener(this);
         } else if (e.getSource() == btnRefillTank2) {
             TrackingMotorcycleThread trackingMotorcycleThread;
-            trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[1], Main.getOnGoingTrips()[1].getHistory().getStatus());
+            trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[1], Main.getOnGoingTrips()[1].getStatus());
             Main.getOnGoingTrips()[1].getVehicle().setGasoline(10.0f);
             trackingMotorcycleThread.start();
             btnRefillTank2.setVisible(false);
@@ -497,7 +512,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             btnRefillTank2.removeMouseListener(this);
         } else if (e.getSource() == btnRefillTank3) {
             TrackingMotorcycleThread trackingMotorcycleThread;
-            trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[2], Main.getOnGoingTrips()[2].getHistory().getStatus());
+            trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[2], Main.getOnGoingTrips()[2].getStatus());
             Main.getOnGoingTrips()[2].getVehicle().setGasoline(12.0f);
             trackingMotorcycleThread.start();
             btnRefillTank3.setVisible(false);

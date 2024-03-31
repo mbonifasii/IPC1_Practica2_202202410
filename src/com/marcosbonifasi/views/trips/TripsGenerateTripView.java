@@ -166,26 +166,30 @@ public class TripsGenerateTripView extends JFrame implements MouseListener {
             TripsController tripsController = new TripsController();
             tripsController.create(
                     Main.generateId("trip"),
-                    vehiclesController.getVehicle(),
+                    vehiclesController.getVehicle().getName(),
                     routeTrip[0],
                     routeTrip[1],
-                    "Pending"
+                    "Pending",
+                    0.0f,
+                    0.0f,
+                    "",
+                    ""
             );
 
-            HistoriesController historiesController = new HistoriesController();
-            historiesController.create(
-                    tripsController.getTrip(),
-                    "",
-                    "",
-                    0,
-                    0
-            );
+//            HistoriesController historiesController = new HistoriesController();
+//            historiesController.create(
+//                    tripsController.getTrip(),
+//                    "",
+//                    "",
+//                    0,
+//                    0
+//            );
 
-            tripsController.getTrip().setHistory(historiesController.getHistory());
+//            tripsController.getTrip().setHistory(historiesController.getHistory());
 
             Main.addTripToQueue(tripsController.getTrip());
 
-            VehiclesController.makeVehicleBusy(tripsController.getTrip().getVehicle().getName());
+            VehiclesController.makeVehicleBusy(tripsController.getTrip().getVehicleName());
 
             TripsTrackingView tripsTrackingView = new TripsTrackingView();
             tripsTrackingView.setVisible(true);

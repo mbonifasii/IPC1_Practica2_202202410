@@ -37,21 +37,21 @@ public class VStandardThread extends Thread {
                 }
 
 
-                int initKm = (int) Math.floor(this.trackingVStandardThread.trip.getHistory().getDistanceTraveled());
-                int finalKm = (int) Math.floor(this.trackingVStandardThread.trip.getHistory().getDistanceTraveled() + ((600.0f/this.trackingVStandardThread.trip.getDistance()) * this.trackingVStandardThread.trip.getDistance())/600.0f);
+                int initKm = (int) Math.floor(this.trackingVStandardThread.trip.getDistanceTraveled());
+                int finalKm = (int) Math.floor(this.trackingVStandardThread.trip.getDistanceTraveled() + ((600.0f/this.trackingVStandardThread.trip.getDistance()) * this.trackingVStandardThread.trip.getDistance())/600.0f);
 
                 if((finalKm - initKm) == 1.0f) {
                     this.trackingVStandardThread.trip.getVehicle().setGasoline(this.trackingVStandardThread.trip.getVehicle().getGasoline() - 0.1f);
-                    this.trackingVStandardThread.trip.getHistory().setGasolineConsumed(this.trackingVStandardThread.trip.getHistory().getGasolineConsumed() + 0.1f);
+                    this.trackingVStandardThread.trip.setGasolineConsumed(this.trackingVStandardThread.trip.getGasolineConsumed() + 0.1f);
                 }
 
                 this.tripsTrackingView.labelVehicle2.setLocation((int) Math.floor(xVehicle), (int )Math.floor(yVehicle));
                 this.tripsTrackingView.labelCurrentInfo2.setLocation((int) Math.floor(xInfo), (int) Math.floor(yInfo));
-                this.trackingVStandardThread.trip.getHistory().setDistanceTraveled((600.0f/this.trackingVStandardThread.trip.getDistance()) * this.trackingVStandardThread.trip.getDistance()/600.0f);
+                this.trackingVStandardThread.trip.setDistanceTraveled((600.0f/this.trackingVStandardThread.trip.getDistance()) * this.trackingVStandardThread.trip.getDistance()/600.0f);
 
                 this.tripsTrackingView.labelCurrentInfo2.setText(
                         "<html>" +
-                                "Recorrido " + this.trackingVStandardThread.trip.getHistory().getDistanceTraveled() +
+                                "Recorrido " + this.trackingVStandardThread.trip.getDistanceTraveled() +
                                 "<br>" +
                                 "Gasolina " + this.trackingVStandardThread.trip.getVehicle().getGasoline() +
                                 "</html>"
@@ -83,7 +83,7 @@ public class VStandardThread extends Thread {
 
 
                 if (this.tripsTrackingView.labelVehicle2.getX() >= 600.0f)
-                    this.trackingVStandardThread.trip.getHistory().setStatus("finalized");
+                    this.trackingVStandardThread.trip.setStatus("finalized");
 
                 if (this.tripsTrackingView.labelVehicle2.getX() <= 0.0f || this.tripsTrackingView.labelVehicle2.getX() >= 600.0f) {
                     this.stopThread();

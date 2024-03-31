@@ -1,7 +1,5 @@
 package com.marcosbonifasi;
 
-
-import com.marcosbonifasi.models.History;
 import com.marcosbonifasi.models.Route;
 import com.marcosbonifasi.models.Trip;
 import com.marcosbonifasi.models.Vehicle;
@@ -13,9 +11,7 @@ import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -23,7 +19,6 @@ public class Main {
 
     private static ArrayList<Route> routes = new ArrayList<Route>();
     private static ArrayList<Trip> trips = new ArrayList<Trip>();
-    private static ArrayList<History> histories = new ArrayList<History>();
     private static ArrayList<Vehicle> vehiclesAvailable = new ArrayList<Vehicle>();
     private static Trip[] onGoingTrips = new Trip[3];
     private static int counterRoutes = 0;
@@ -34,13 +29,12 @@ public class Main {
         dashboardView.setVisible(true);
 
         initVehicles();
+
+        readBinaryFile();
     }
 
     public static ArrayList<Route> getRoutes(){
         return routes;
-    }
-    public static ArrayList<History> getHistories(){
-        return histories;
     }
     public static ArrayList<Vehicle> getVehiclesAvailable(){
         return vehiclesAvailable;
@@ -88,9 +82,6 @@ public class Main {
     public static void addTrip(Trip trip){
         trips.add(trip);
     }
-    public static void addHistory(History history){
-        histories.add(history);
-    }
 
     public static void addTripToQueue(Trip trip){
         for (int i = 0; i < onGoingTrips.length; i++) {
@@ -130,14 +121,18 @@ public class Main {
         return onGoingTrips;
     }
 
+    public static ArrayList<Trip> getTrips(){
+        return trips;
+    }
+
     // Threads
 
     public static void goVehicle1(TripsTrackingView tripsTrackingView){
         TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(tripsTrackingView, Main.getOnGoingTrips()[0], "go");
         trackingMotorcycleThread.start();
 
-        getOnGoingTrips()[0].getHistory().setInitialDatetime(LocalDateTime.now().toString());
-        getOnGoingTrips()[0].getHistory().setStatus("go");
+        getOnGoingTrips()[0].setInitialDatetime(LocalDateTime.now().toString());
+        getOnGoingTrips()[0].setStatus("go");
     }
 
     // Serialization
@@ -146,17 +141,37 @@ public class Main {
         // Serialización de la lista
         try {
             // Creamos el archivo binario en la ruta especificada
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("./Archivos/Animals.bin"));
-            // Escribimos nuestro ArrayList de tipo Animal
-//            out.writeObject(animals);
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("./cache/trips.bin"));
+            // Escribimos nuestro ArrayList de tipo Trip
+            out.writeObject(trips);
             // Cerramos el archivo
             out.close();
-            System.out.println("Binario escrito correctamente :)");
+            System.out.println("Binary writen successfully :)");
         } catch (IOException e) {
             System.out.println("Something went wrong :(");
             e.printStackTrace();
         }
-        System.out.println("***********************************************************************");
     }
+
+    public static Object readBinaryFile() {
+        // Deserialización de la lista
+        try {
+            // Abrimos el archivo binario en la ruta especificada
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream("./cache/trips.bin"));
+            // Leemos el objeto guardado (Arraylist de tipo Trip) y lo guardamos en un Arryalist del mismo tipo
+            trips = (ArrayList<Trip>) in.readObject();
+            System.out.println(trips);
+            // Cerramos el archivo
+            in.close();
+            System.out.println("History list deserialize successfully :)");
+            // Retornamos el objeto
+            return trips;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        // Si no existe ningun archivo o si ocurre un error, se retorna null
+        return null;
+    }
+
 
 }

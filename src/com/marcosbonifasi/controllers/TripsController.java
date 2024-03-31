@@ -12,13 +12,17 @@ public class TripsController {
 
     public TripsController(){}
 
-    public void create(int id, Vehicle vehicle, String startingPoint, String finalPoint, String status){
+    public void create(int id, String vehicleName, String startingPoint, String finalPoint, String status, float distanceTraveled, float gasolineConsumed, String initialDatetime, String finalDatetime){
         this.trip = new Trip(
             id,
-            vehicle,
+            vehicleName,
             startingPoint,
             finalPoint,
-            status
+            status,
+            distanceTraveled,
+            gasolineConsumed,
+            initialDatetime,
+            finalDatetime
         );
 
         Main.addTrip(this.trip);

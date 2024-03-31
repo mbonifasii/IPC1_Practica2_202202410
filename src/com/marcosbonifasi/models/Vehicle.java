@@ -1,6 +1,8 @@
 package com.marcosbonifasi.models;
 
-public class Vehicle {
+import java.io.Serializable;
+
+public class Vehicle implements Serializable {
 
     private float gasoline;
     private String name;
