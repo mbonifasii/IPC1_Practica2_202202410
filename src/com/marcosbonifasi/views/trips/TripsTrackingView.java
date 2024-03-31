@@ -1,19 +1,14 @@
 package com.marcosbonifasi.views.trips;
 
 import com.marcosbonifasi.Main;
-import com.marcosbonifasi.threads.TrackingMotorcycleThread;
-import com.marcosbonifasi.threads.TrackingVPremiumThread;
-import com.marcosbonifasi.threads.TrackingVStandardThread;
 import com.marcosbonifasi.views.DashboardView;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.time.LocalDateTime;
 
 public class TripsTrackingView extends JFrame implements MouseListener {
 

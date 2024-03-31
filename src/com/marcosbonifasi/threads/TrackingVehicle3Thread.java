@@ -3,13 +3,13 @@ package com.marcosbonifasi.threads;
 import com.marcosbonifasi.models.Trip;
 import com.marcosbonifasi.views.trips.TripsTrackingView;
 
-public class TrackingVStandardThread extends Thread {
+public class TrackingVehicle3Thread extends Thread {
     String tripType;
     TripsTrackingView tripsTrackingView;
     Trip trip;
     private volatile boolean runningClock = true;
 
-    public TrackingVStandardThread(TripsTrackingView tripsTrackingView, Trip trip, String tripType) {
+    public TrackingVehicle3Thread(TripsTrackingView tripsTrackingView, Trip trip, String tripType) {
         this.tripsTrackingView = tripsTrackingView;
         this.tripType = tripType;
         this.trip = trip;
@@ -17,8 +17,8 @@ public class TrackingVStandardThread extends Thread {
 
     @Override
     public void run() {
-        Vehicle2Thread vehicle2Thread = new Vehicle2Thread(this.tripsTrackingView, this);
-        vehicle2Thread.start();
+        Vehicle3Thread cPremiumThread = new Vehicle3Thread(this.tripsTrackingView, this);
+        cPremiumThread.start();
         try {
             while (runningClock) {
                 this.tripsTrackingView.btnInitDriver1.setEnabled(false);

@@ -3,8 +3,8 @@ package com.marcosbonifasi;
 import com.marcosbonifasi.models.Route;
 import com.marcosbonifasi.models.Trip;
 import com.marcosbonifasi.models.Vehicle;
-import com.marcosbonifasi.threads.TrackingMotorcycleThread;
-import com.marcosbonifasi.threads.TrackingVStandardThread;
+import com.marcosbonifasi.threads.TrackingVehicleThread;
+import com.marcosbonifasi.threads.TrackingVehicle2Thread;
 import com.marcosbonifasi.views.DashboardView;
 import com.marcosbonifasi.views.trips.TripsTrackingView;
 
@@ -129,72 +129,72 @@ public class Main {
     // Threads
 
     public static void goVehicle1(TripsTrackingView tripsTrackingView){
-        TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(tripsTrackingView, Main.getOnGoingTrips()[0], "go");
-        trackingMotorcycleThread.start();
+        TrackingVehicleThread trackingVehicleThread = new TrackingVehicleThread(tripsTrackingView, Main.getOnGoingTrips()[0], "go");
+        trackingVehicleThread.start();
 
         getOnGoingTrips()[0].setInitialDatetime(LocalDateTime.now().toString());
         getOnGoingTrips()[0].setStatus("go");
     }
 
     public static void goVehicle2(TripsTrackingView tripsTrackingView){
-        TrackingVStandardThread trackingVStandardThread = new TrackingVStandardThread(tripsTrackingView, Main.getOnGoingTrips()[1], "go");
-        trackingVStandardThread.start();
+        TrackingVehicle2Thread trackingVehicle2Thread = new TrackingVehicle2Thread(tripsTrackingView, Main.getOnGoingTrips()[1], "go");
+        trackingVehicle2Thread.start();
 
         Main.getOnGoingTrips()[1].setInitialDatetime(LocalDateTime.now().toString());
         Main.getOnGoingTrips()[1].setStatus("go");
     }
 
     public static void goVehicle3(TripsTrackingView tripsTrackingView){
-        TrackingVStandardThread trackingVStandardThread = new TrackingVStandardThread(tripsTrackingView, Main.getOnGoingTrips()[2], "go");
-        trackingVStandardThread.start();
+        TrackingVehicle2Thread trackingVehicle2Thread = new TrackingVehicle2Thread(tripsTrackingView, Main.getOnGoingTrips()[2], "go");
+        trackingVehicle2Thread.start();
 
         Main.getOnGoingTrips()[2].setInitialDatetime(LocalDateTime.now().toString());
         Main.getOnGoingTrips()[2].setStatus("go");
     }
 
     public static void returnVehicle1(TripsTrackingView tripsTrackingView){
-        TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(tripsTrackingView, Main.getOnGoingTrips()[0],"return");
+        TrackingVehicleThread trackingVehicleThread = new TrackingVehicleThread(tripsTrackingView, Main.getOnGoingTrips()[0],"return");
         Main.getOnGoingTrips()[0].setStatus("return");
-        trackingMotorcycleThread.start();
+        trackingVehicleThread.start();
     }
 
     public static void returnVehicle2(TripsTrackingView tripsTrackingView){
-        TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(tripsTrackingView, Main.getOnGoingTrips()[1],"return");
+        TrackingVehicleThread trackingVehicleThread = new TrackingVehicleThread(tripsTrackingView, Main.getOnGoingTrips()[1],"return");
         Main.getOnGoingTrips()[1].setStatus("return");
-        trackingMotorcycleThread.start();
+        trackingVehicleThread.start();
     }
 
     public static void returnVehicle3(TripsTrackingView tripsTrackingView){
-        TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(tripsTrackingView, Main.getOnGoingTrips()[2],"return");
+        TrackingVehicleThread trackingVehicleThread = new TrackingVehicleThread(tripsTrackingView, Main.getOnGoingTrips()[2],"return");
         Main.getOnGoingTrips()[2].setStatus("return");
-        trackingMotorcycleThread.start();
+        trackingVehicleThread.start();
     }
 
     public static void refillTank1(TripsTrackingView tripsTrackingView){
-        TrackingMotorcycleThread trackingMotorcycleThread;
-        trackingMotorcycleThread = new TrackingMotorcycleThread(tripsTrackingView, Main.getOnGoingTrips()[0], Main.getOnGoingTrips()[0].getStatus());
+        TrackingVehicleThread trackingVehicleThread;
+        trackingVehicleThread = new TrackingVehicleThread(tripsTrackingView, Main.getOnGoingTrips()[0], Main.getOnGoingTrips()[0].getStatus());
         Main.getOnGoingTrips()[0].getVehicle().setGasoline(6.0f);
-        trackingMotorcycleThread.start();
+        trackingVehicleThread.start();
         tripsTrackingView.btnRefillTank1.setVisible(false);
         tripsTrackingView.btnRefillTank1.setEnabled(false);
         tripsTrackingView.btnRefillTank1.removeMouseListener(tripsTrackingView);
     }
 
     public static void refillTank2(TripsTrackingView tripsTrackingView){
-        TrackingMotorcycleThread trackingMotorcycleThread;
-        trackingMotorcycleThread = new TrackingMotorcycleThread(tripsTrackingView, Main.getOnGoingTrips()[1], Main.getOnGoingTrips()[1].getStatus());
+        TrackingVehicleThread trackingVehicleThread;
+        trackingVehicleThread = new TrackingVehicleThread(tripsTrackingView, Main.getOnGoingTrips()[1], Main.getOnGoingTrips()[1].getStatus());
         Main.getOnGoingTrips()[1].getVehicle().setGasoline(10.0f);
-        trackingMotorcycleThread.start();
+        trackingVehicleThread.start();
         tripsTrackingView.btnRefillTank1.setVisible(false);
         tripsTrackingView.btnRefillTank1.setEnabled(false);
         tripsTrackingView.btnRefillTank1.removeMouseListener(tripsTrackingView);
     }
 
     public static void refillTank3(TripsTrackingView tripsTrackingView){
-        TrackingMotorcycleThread trackingMotorcycleThread;
-        trackingMotorcycleThread = new TrackingMotorcycleThread(tripsTrackingView, Main.getOnGoingTrips()[2], Main.getOnGoingTrips()[2].getStatus());
+        TrackingVehicleThread trackingVehicleThread;
+        trackingVehicleThread = new TrackingVehicleThread(tripsTrackingView, Main.getOnGoingTrips()[2], Main.getOnGoingTrips()[2].getStatus());
         Main.getOnGoingTrips()[2].getVehicle().setGasoline(12.0f);
-        trackingMotorcycleThread.start();
+        trackingVehicleThread.start();
         tripsTrackingView.btnRefillTank1.setVisible(false);
         tripsTrackingView.btnRefillTank1.setEnabled(false);
         tripsTrackingView.btnRefillTank1.removeMouseListener(tripsTrackingView);
