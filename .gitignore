@@ -21,6 +21,7 @@ bin/
 /dist/
 /nbdist/
 /.nb-gradle/
+/cache/trips.bin
 
 ### VS Code ###
 .vscode/
