@@ -1,12 +1,10 @@
 package com.marcosbonifasi.views.trips;
 
 import com.marcosbonifasi.Main;
-import com.marcosbonifasi.controllers.HistoriesController;
+
 import com.marcosbonifasi.controllers.RoutesController;
 import com.marcosbonifasi.controllers.TripsController;
 import com.marcosbonifasi.controllers.VehiclesController;
-import com.marcosbonifasi.models.Vehicle;
-import com.marcosbonifasi.views.DashboardView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.time.LocalDateTime;
 
 public class TripsGenerateTripView extends JFrame implements MouseListener {
 
@@ -176,16 +173,6 @@ public class TripsGenerateTripView extends JFrame implements MouseListener {
                     ""
             );
 
-//            HistoriesController historiesController = new HistoriesController();
-//            historiesController.create(
-//                    tripsController.getTrip(),
-//                    "",
-//                    "",
-//                    0,
-//                    0
-//            );
-
-//            tripsController.getTrip().setHistory(historiesController.getHistory());
 
             Main.addTripToQueue(tripsController.getTrip());
 

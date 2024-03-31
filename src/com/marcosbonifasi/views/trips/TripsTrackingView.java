@@ -467,10 +467,19 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             Main.goVehicle3(this);
         } else if (e.getSource() == btnReturn1) {
             Main.returnVehicle1(this);
+
+            btnReturn1.setEnabled(false);
+            btnReturn1.removeMouseListener(this);
         } else if (e.getSource() == btnReturn2) {
             Main.returnVehicle2(this);
+
+            btnReturn2.setEnabled(false);
+            btnReturn2.removeMouseListener(this);
         } else if (e.getSource() == btnReturn3) {
             Main.returnVehicle3(this);
+
+            btnReturn3.setEnabled(false);
+            btnReturn3.removeMouseListener(this);
         } else if (e.getSource() == btnRefillTank1) {
             Main.refillTank1(this);
         } else if (e.getSource() == btnRefillTank2) {
@@ -481,6 +490,14 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             Main.goVehicle1(this);
             Main.goVehicle2(this);
             Main.goVehicle3(this);
+            btnReturn1.setEnabled(false);
+            btnReturn1.removeMouseListener(this);
+
+            btnReturn2.setEnabled(false);
+            btnReturn2.removeMouseListener(this);
+
+            btnReturn2.setEnabled(false);
+            btnReturn2.removeMouseListener(this);
         }
 
     }
