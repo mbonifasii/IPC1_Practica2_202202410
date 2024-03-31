@@ -17,8 +17,8 @@ public class TrackingMotorcycleThread extends Thread {
 
     @Override
     public void run() {
-        MotorcycleThread motorcycleThread = new MotorcycleThread(this.tripsTrackingView, this);
-        motorcycleThread.start();
+        Vehicle1Thread vehicle1Thread = new Vehicle1Thread(this.tripsTrackingView, this);
+        vehicle1Thread.start();
         try {
             while (runningClock) {
                 this.tripsTrackingView.btnInitDriver1.setEnabled(false);

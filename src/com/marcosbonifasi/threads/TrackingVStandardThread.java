@@ -17,8 +17,8 @@ public class TrackingVStandardThread extends Thread {
 
     @Override
     public void run() {
-        VStandardThread vStandardThread = new VStandardThread(this.tripsTrackingView, this);
-        vStandardThread.start();
+        Vehicle2Thread vehicle2Thread = new Vehicle2Thread(this.tripsTrackingView, this);
+        vehicle2Thread.start();
         try {
             while (runningClock) {
                 this.tripsTrackingView.btnInitDriver1.setEnabled(false);

@@ -17,7 +17,7 @@ public class TrackingVPremiumThread extends Thread {
 
     @Override
     public void run() {
-        VPremiumThread cPremiumThread = new VPremiumThread(this.tripsTrackingView, this);
+        Vehicle3Thread cPremiumThread = new Vehicle3Thread(this.tripsTrackingView, this);
         cPremiumThread.start();
         try {
             while (runningClock) {

@@ -1,20 +1,19 @@
 package com.marcosbonifasi.threads;
 
-import com.marcosbonifasi.Main;
 import com.marcosbonifasi.views.trips.TripsTrackingView;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class VStandardThread extends Thread {
+public class Vehicle2Thread extends Thread {
 
     float xVehicle, yVehicle, xInfo, yInfo;
     private volatile boolean runningVehicle2 = true;
     private TripsTrackingView tripsTrackingView;
     private TrackingVStandardThread trackingVStandardThread;
 
-    public VStandardThread(){}
-    public VStandardThread(TripsTrackingView tripsTrackingView, TrackingVStandardThread trackingVStandardThread){
+    public Vehicle2Thread(){}
+    public Vehicle2Thread(TripsTrackingView tripsTrackingView, TrackingVStandardThread trackingVStandardThread){
         this.tripsTrackingView = tripsTrackingView;
         this.xVehicle= this.tripsTrackingView.labelVehicle2.getX();
         this.yVehicle= this.tripsTrackingView.labelVehicle2.getY();

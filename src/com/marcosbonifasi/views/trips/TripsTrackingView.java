@@ -239,6 +239,8 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             btnInitDriver1.setEnabled(true);
             btnInitDriver1.addMouseListener(this);
             btnReturn1.setEnabled(false);
+            btnInitAllDrivers.setEnabled(true);
+            btnInitAllDrivers.addMouseListener(this);
 
 
             labelInitialPointInfo1 = new JLabel(
@@ -463,61 +465,27 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             dashboardView.setVisible(true);
             dispose();
         } else if (e.getSource() == btnInitDriver1) {
-//            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[0], "go");
-//            trackingMotorcycleThread.start();
-//
-//            Main.getOnGoingTrips()[0].getHistory().setInitialDatetime(LocalDateTime.now().toString());
-//            Main.getOnGoingTrips()[0].getHistory().setStatus("go");
             Main.goVehicle1(this);
-
         } else if (e.getSource() == btnInitDriver2) {
-            TrackingVStandardThread trackingVStandardThread = new TrackingVStandardThread(this, Main.getOnGoingTrips()[1], "go");
-            trackingVStandardThread.start();
-
-            Main.getOnGoingTrips()[1].setInitialDatetime(LocalDateTime.now().toString());
-            Main.getOnGoingTrips()[1].setStatus("go");
+            Main.goVehicle2(this);
         } else if (e.getSource() == btnInitDriver3) {
-            TrackingVPremiumThread trackingVPremiumThread = new TrackingVPremiumThread(this, Main.getOnGoingTrips()[2], "go");
-            trackingVPremiumThread.start();
-
-            Main.getOnGoingTrips()[2].setInitialDatetime(LocalDateTime.now().toString());
-            Main.getOnGoingTrips()[2].setStatus("go");
+            Main.goVehicle3(this);
         } else if (e.getSource() == btnReturn1) {
-            TrackingMotorcycleThread trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[0],"return");
-            Main.getOnGoingTrips()[0].setStatus("return");
-            trackingMotorcycleThread.start();
+            Main.returnVehicle1(this);
         } else if (e.getSource() == btnReturn2) {
-            TrackingVStandardThread trackingVStandardThread = new TrackingVStandardThread(this, Main.getOnGoingTrips()[1],"return");
-            Main.getOnGoingTrips()[1].setStatus("return");
-            trackingVStandardThread.start();
+            Main.returnVehicle2(this);
         } else if (e.getSource() == btnReturn3) {
-            TrackingVPremiumThread trackingVPremiumThread = new TrackingVPremiumThread(this, Main.getOnGoingTrips()[2],"return");
-            Main.getOnGoingTrips()[2].setStatus("return");
-            trackingVPremiumThread.start();
+            Main.returnVehicle3(this);
         } else if (e.getSource() == btnRefillTank1) {
-            TrackingMotorcycleThread trackingMotorcycleThread;
-            trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[0], Main.getOnGoingTrips()[0].getStatus());
-            Main.getOnGoingTrips()[0].getVehicle().setGasoline(6.0f);
-            trackingMotorcycleThread.start();
-            btnRefillTank1.setVisible(false);
-            btnRefillTank1.setEnabled(false);
-            btnRefillTank1.removeMouseListener(this);
+            Main.refillTank1(this);
         } else if (e.getSource() == btnRefillTank2) {
-            TrackingMotorcycleThread trackingMotorcycleThread;
-            trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[1], Main.getOnGoingTrips()[1].getStatus());
-            Main.getOnGoingTrips()[1].getVehicle().setGasoline(10.0f);
-            trackingMotorcycleThread.start();
-            btnRefillTank2.setVisible(false);
-            btnRefillTank2.setEnabled(false);
-            btnRefillTank2.removeMouseListener(this);
+            Main.refillTank2(this);
         } else if (e.getSource() == btnRefillTank3) {
-            TrackingMotorcycleThread trackingMotorcycleThread;
-            trackingMotorcycleThread = new TrackingMotorcycleThread(this, Main.getOnGoingTrips()[2], Main.getOnGoingTrips()[2].getStatus());
-            Main.getOnGoingTrips()[2].getVehicle().setGasoline(12.0f);
-            trackingMotorcycleThread.start();
-            btnRefillTank3.setVisible(false);
-            btnRefillTank3.setEnabled(false);
-            btnRefillTank3.removeMouseListener(this);
+            Main.refillTank3(this);
+        } else if (e.getSource() == btnInitAllDrivers) {
+            Main.goVehicle1(this);
+            Main.goVehicle2(this);
+            Main.goVehicle3(this);
         }
 
     }
