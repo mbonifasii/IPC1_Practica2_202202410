@@ -285,12 +285,11 @@ public class Main {
                     if(onGoingTrips[j] == null){
                         onGoingTrips[j] = trips.get(i);
                         makeVehicleBusy(onGoingTrips[j].getVehicleName());
-                        counterTrips = onGoingTrips[j].getId(); // we initialize the trips counter
                         break;
                     }
                 }
             }
+            counterTrips = trips.get(i).getId(); // we initialize the trips counter
         }
-
     }
 }

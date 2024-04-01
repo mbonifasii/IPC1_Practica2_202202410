@@ -101,6 +101,7 @@ public class Vehicle1Thread extends Thread {
                     Main.makeVehicleAvailable(this.trackingVehicle1Thread.trip.getVehicleName());
                     Main.removeOnGoingTrip(this.trackingVehicle1Thread.trip);
                 }
+
                 if (this.tripsTrackingView.labelVehicle1.getX() <= 0 || this.tripsTrackingView.labelVehicle1.getX() >= 600) {
                     this.stopThread();
                     this.trackingVehicle1Thread.stopClockThread();

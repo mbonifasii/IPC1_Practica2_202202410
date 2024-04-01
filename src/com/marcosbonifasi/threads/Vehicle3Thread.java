@@ -1,9 +1,11 @@
 package com.marcosbonifasi.threads;
 
+import com.marcosbonifasi.Main;
 import com.marcosbonifasi.views.trips.TripsTrackingView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDateTime;
 
 public class Vehicle3Thread extends Thread {
 
@@ -47,6 +49,8 @@ public class Vehicle3Thread extends Thread {
                 this.tripsTrackingView.labelVehicle3.setLocation((int) Math.floor(xVehicle), (int )Math.floor(yVehicle));
                 this.tripsTrackingView.labelCurrentInfo3.setLocation((int) Math.floor(xInfo), (int) Math.floor(yInfo));
                 this.trackingVehicle3Thread.trip.setDistanceTraveled((600.0f/this.trackingVehicle3Thread.trip.getDistance()) * this.trackingVehicle3Thread.trip.getDistance()/600.0f);
+                this.trackingVehicle3Thread.trip.setxVehicle(this.xVehicle);
+                this.trackingVehicle3Thread.trip.setxInfo(this.xInfo);
 
                 this.tripsTrackingView.labelCurrentInfo3.setText(
                         "<html>" +
@@ -81,8 +85,21 @@ public class Vehicle3Thread extends Thread {
                 }
 
 
-                if (this.tripsTrackingView.labelVehicle3.getX() >= 600.0f)
+                if (this.tripsTrackingView.labelVehicle3.getX() >= 600.0f) {
                     this.trackingVehicle3Thread.trip.setStatus("finalized");
+                    this.tripsTrackingView.btnReturn3.setEnabled(false);
+                    this.tripsTrackingView.btnReturn3.removeMouseListener(this.tripsTrackingView);
+                    this.tripsTrackingView.btnInitDriver3.setEnabled(false);
+                    this.tripsTrackingView.btnInitDriver3.removeMouseListener(this.tripsTrackingView);
+                    this.tripsTrackingView.btnResumeVehicle3.setEnabled(false);
+                    this.tripsTrackingView.btnResumeVehicle3.removeMouseListener(this.tripsTrackingView);
+
+                    JOptionPane.showMessageDialog(null, "Viaje conductor 3 finalizado :)");
+                    this.trackingVehicle3Thread.trip.setFinalDatetime(LocalDateTime.now().toString());
+                    this.tripsTrackingView.cleanVehicle3Info();
+                    Main.makeVehicleAvailable(this.trackingVehicle3Thread.trip.getVehicleName());
+                    Main.removeOnGoingTrip(this.trackingVehicle3Thread.trip);
+                }
 
                 if (this.tripsTrackingView.labelVehicle3.getX() <= 0.0f || this.tripsTrackingView.labelVehicle3.getX() >= 600.0f) {
                     this.stopThread();

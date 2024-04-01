@@ -1,9 +1,11 @@
 package com.marcosbonifasi.threads;
 
+import com.marcosbonifasi.Main;
 import com.marcosbonifasi.views.trips.TripsTrackingView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDateTime;
 
 public class Vehicle2Thread extends Thread {
 
@@ -47,13 +49,15 @@ public class Vehicle2Thread extends Thread {
                 this.tripsTrackingView.labelVehicle2.setLocation((int) Math.floor(xVehicle), (int )Math.floor(yVehicle));
                 this.tripsTrackingView.labelCurrentInfo2.setLocation((int) Math.floor(xInfo), (int) Math.floor(yInfo));
                 this.trackingVehicle2Thread.trip.setDistanceTraveled((600.0f/this.trackingVehicle2Thread.trip.getDistance()) * this.trackingVehicle2Thread.trip.getDistance()/600.0f);
+                this.trackingVehicle2Thread.trip.setxVehicle(this.xVehicle);
+                this.trackingVehicle2Thread.trip.setxInfo(this.xInfo);
 
                 this.tripsTrackingView.labelCurrentInfo2.setText(
                         "<html>" +
-                                "Recorrido " + this.trackingVehicle2Thread.trip.getDistanceTraveled() +
-                                "<br>" +
-                                "Gasolina " + this.trackingVehicle2Thread.trip.getVehicle().getGasoline() +
-                                "</html>"
+                        "Recorrido " + this.trackingVehicle2Thread.trip.getDistanceTraveled() +
+                        "<br>" +
+                        "Gasolina " + this.trackingVehicle2Thread.trip.getVehicle().getGasoline() +
+                        "</html>"
                 );
 
                 if(this.trackingVehicle2Thread.trip.getVehicle().getGasoline() <= 0.0f){
@@ -81,8 +85,21 @@ public class Vehicle2Thread extends Thread {
                 }
 
 
-                if (this.tripsTrackingView.labelVehicle2.getX() >= 600.0f)
+                if (this.tripsTrackingView.labelVehicle2.getX() >= 600.0f) {
                     this.trackingVehicle2Thread.trip.setStatus("finalized");
+                    this.tripsTrackingView.btnReturn2.setEnabled(false);
+                    this.tripsTrackingView.btnReturn2.removeMouseListener(this.tripsTrackingView);
+                    this.tripsTrackingView.btnInitDriver2.setEnabled(false);
+                    this.tripsTrackingView.btnInitDriver2.removeMouseListener(this.tripsTrackingView);
+                    this.tripsTrackingView.btnResumeVehicle2.setEnabled(false);
+                    this.tripsTrackingView.btnResumeVehicle2.removeMouseListener(this.tripsTrackingView);
+
+                    JOptionPane.showMessageDialog(null, "Viaje conductor 2 finalizado :)");
+                    this.trackingVehicle2Thread.trip.setFinalDatetime(LocalDateTime.now().toString());
+                    this.tripsTrackingView.cleanVehicle2Info();
+                    Main.makeVehicleAvailable(this.trackingVehicle2Thread.trip.getVehicleName());
+                    Main.removeOnGoingTrip(this.trackingVehicle2Thread.trip);
+                }
 
                 if (this.tripsTrackingView.labelVehicle2.getX() <= 0.0f || this.tripsTrackingView.labelVehicle2.getX() >= 600.0f) {
                     this.stopThread();
