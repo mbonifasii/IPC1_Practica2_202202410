@@ -12,13 +12,13 @@ public class Trip implements Serializable {
     private String status;
     private String vehicleName;
 
-    private float distanceTraveled, gasolineConsumed;
+    private float distanceTraveled, gasolineConsumed, xVehicle, xInfo;
     private String initialDatetime, finalDatetime;
     private Vehicle vehicle;
 
 
     public Trip(){}
-    public Trip(int id, String vehicleName, String startingPoint, String finalPoint, String status, float distanceTraveled, float gasolineConsumed, String initialDatetime, String finalDatetime){
+    public Trip(int id, String vehicleName, String startingPoint, String finalPoint, String status, float distanceTraveled, float gasolineConsumed, String initialDatetime, String finalDatetime, float xVehicle, float xInfo){
         this.id = id;
         this.vehicleName = vehicleName;
         this.startingPoint = startingPoint;
@@ -29,6 +29,8 @@ public class Trip implements Serializable {
         this.initialDatetime = initialDatetime;
         this.finalDatetime = finalDatetime;
         this.vehicle = new VehiclesController(vehicleName).getVehicle();
+        this.xVehicle = xVehicle;
+        this.xInfo = xInfo;
     }
 
     public int getId() {
@@ -72,14 +74,6 @@ public class Trip implements Serializable {
         return distance;
     }
 
-//    public History getHistory() {
-//        return history;
-//    }
-
-//    public void setHistory(History history) {
-//        this.history = history;
-//    }
-
     public String getStartingPoint() {
         return startingPoint;
     }
@@ -105,7 +99,7 @@ public class Trip implements Serializable {
     }
 
     public void setDistanceTraveled(float distanceTraveled) {
-        this.distanceTraveled = distanceTraveled;
+        this.distanceTraveled = this.distanceTraveled + distanceTraveled;
     }
 
     public float getGasolineConsumed() {
@@ -130,5 +124,25 @@ public class Trip implements Serializable {
 
     public void setFinalDatetime(String finalDatetime) {
         this.finalDatetime = finalDatetime;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    public float getxVehicle() {
+        return xVehicle;
+    }
+
+    public void setxVehicle(float xVehicle) {
+        this.xVehicle = xVehicle;
+    }
+
+    public float getxInfo() {
+        return xInfo;
+    }
+
+    public void setxInfo(float xInfo) {
+        this.xInfo = xInfo;
     }
 }

@@ -33,6 +33,8 @@ public class Main {
         initVehicles();
 
         readBinaryFile();
+        // Classify trips
+        classifyTrips();
     }
 
     public static ArrayList<Route> getRoutes(){
@@ -129,31 +131,49 @@ public class Main {
 
     // Threads
 
-    public static void goVehicle1(TripsTrackingView tripsTrackingView){
+    public static void goVehicle1(TripsTrackingView tripsTrackingView, String action){
         if(getOnGoingTrips()[0] == null) return;
-        TrackingVehicle1Thread trackingVehicle1Thread = new TrackingVehicle1Thread(tripsTrackingView, Main.getOnGoingTrips()[0], "go");
+        TrackingVehicle1Thread trackingVehicle1Thread = new TrackingVehicle1Thread(tripsTrackingView, Main.getOnGoingTrips()[0], action);
         trackingVehicle1Thread.start();
 
         getOnGoingTrips()[0].setInitialDatetime(LocalDateTime.now().toString());
-        getOnGoingTrips()[0].setStatus("go");
+        getOnGoingTrips()[0].setStatus(action);
     }
 
-    public static void goVehicle2(TripsTrackingView tripsTrackingView){
+    public static void resumeVehicle1(TripsTrackingView tripsTrackingView, String action){
+        if(getOnGoingTrips()[0] == null) return;
+        TrackingVehicle1Thread trackingVehicle1Thread = new TrackingVehicle1Thread(tripsTrackingView, Main.getOnGoingTrips()[0], action);
+        trackingVehicle1Thread.start();
+    }
+
+    public static void goVehicle2(TripsTrackingView tripsTrackingView, String action){
         if(getOnGoingTrips()[1] == null) return;
-        TrackingVehicle2Thread trackingVehicle2Thread = new TrackingVehicle2Thread(tripsTrackingView, Main.getOnGoingTrips()[1], "go");
+        TrackingVehicle2Thread trackingVehicle2Thread = new TrackingVehicle2Thread(tripsTrackingView, Main.getOnGoingTrips()[1], action);
         trackingVehicle2Thread.start();
 
         Main.getOnGoingTrips()[1].setInitialDatetime(LocalDateTime.now().toString());
-        Main.getOnGoingTrips()[1].setStatus("go");
+        Main.getOnGoingTrips()[1].setStatus(action);
     }
 
-    public static void goVehicle3(TripsTrackingView tripsTrackingView){
+    public static void resumeVehicle2(TripsTrackingView tripsTrackingView, String action){
+        if(getOnGoingTrips()[1] == null) return;
+        TrackingVehicle2Thread trackingVehicle2Thread = new TrackingVehicle2Thread(tripsTrackingView, Main.getOnGoingTrips()[0], action);
+        trackingVehicle2Thread.start();
+    }
+
+    public static void goVehicle3(TripsTrackingView tripsTrackingView, String action){
         if(getOnGoingTrips()[2] == null) return;
-        TrackingVehicle3Thread trackingVehicle3Thread = new TrackingVehicle3Thread(tripsTrackingView, Main.getOnGoingTrips()[2], "go");
+        TrackingVehicle3Thread trackingVehicle3Thread = new TrackingVehicle3Thread(tripsTrackingView, Main.getOnGoingTrips()[2], action);
         trackingVehicle3Thread.start();
 
         Main.getOnGoingTrips()[2].setInitialDatetime(LocalDateTime.now().toString());
-        Main.getOnGoingTrips()[2].setStatus("go");
+        Main.getOnGoingTrips()[2].setStatus(action);
+    }
+
+    public static void resumeVehicle3(TripsTrackingView tripsTrackingView, String action){
+        if(getOnGoingTrips()[2] == null) return;
+        TrackingVehicle3Thread trackingVehicle3Thread = new TrackingVehicle3Thread(tripsTrackingView, Main.getOnGoingTrips()[0], action);
+        trackingVehicle3Thread.start();
     }
 
     public static void returnVehicle1(TripsTrackingView tripsTrackingView){
@@ -243,6 +263,18 @@ public class Main {
         }
         // Si no existe ningun archivo o si ocurre un error, se retorna null
         return null;
+    }
+
+    private static void classifyTrips(){
+        for (int i = 0; i < trips.size(); i++) {
+            if(!trips.get(i).getStatus().equals("finalized")){
+                for (int j = 0; j < onGoingTrips.length; j++) {
+                    if(onGoingTrips[i] == null){
+                        onGoingTrips[i] = trips.get(i);
+                    }
+                }
+            }
+        }
     }
 
 

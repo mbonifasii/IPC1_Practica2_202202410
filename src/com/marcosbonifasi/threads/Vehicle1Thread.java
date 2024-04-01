@@ -20,6 +20,7 @@ public class Vehicle1Thread extends Thread {
         this.xInfo= this.tripsTrackingView.labelCurrentInfo1.getX();
         this.yInfo= this.tripsTrackingView.labelCurrentInfo1.getY();
         this.trackingVehicle1Thread = trackingVehicle1Thread;
+        System.out.println("asdfasdfasdfas");
     }
 
     public void run(){
@@ -47,6 +48,8 @@ public class Vehicle1Thread extends Thread {
                 this.tripsTrackingView.labelVehicle1.setLocation((int) Math.floor(xVehicle), (int )Math.floor(yVehicle));
                 this.tripsTrackingView.labelCurrentInfo1.setLocation((int) Math.floor(xInfo), (int) Math.floor(yInfo));
                 this.trackingVehicle1Thread.trip.setDistanceTraveled((600.0f/this.trackingVehicle1Thread.trip.getDistance()) * this.trackingVehicle1Thread.trip.getDistance()/600.0f);
+                this.trackingVehicle1Thread.trip.setxVehicle(this.xVehicle);
+                this.trackingVehicle1Thread.trip.setxInfo(this.xInfo);
 
                 this.tripsTrackingView.labelCurrentInfo1.setText(
                         "<html>" +
@@ -85,6 +88,13 @@ public class Vehicle1Thread extends Thread {
                     this.trackingVehicle1Thread.trip.setStatus("finalized");
                     this.tripsTrackingView.btnReturn1.setEnabled(false);
                     this.tripsTrackingView.btnReturn1.removeMouseListener(this.tripsTrackingView);
+                    this.tripsTrackingView.btnInitDriver1.setEnabled(false);
+                    this.tripsTrackingView.btnInitDriver1.removeMouseListener(this.tripsTrackingView);
+                    this.tripsTrackingView.btnResumeVehicle1.setEnabled(false);
+                    this.tripsTrackingView.btnResumeVehicle1.removeMouseListener(this.tripsTrackingView);
+
+                    JOptionPane.showMessageDialog(null, "Viaje finalizado :)");
+                    this.tripsTrackingView.cleanVehicle1Info();
                 }
                 if (this.tripsTrackingView.labelVehicle1.getX() <= 0 || this.tripsTrackingView.labelVehicle1.getX() >= 600) {
                     this.stopThread();
@@ -101,6 +111,7 @@ public class Vehicle1Thread extends Thread {
                 this.tripsTrackingView.highway1.repaint();
             }
         } catch (Exception e){
+            System.out.println("Something went wrong :(");
             System.out.println(e);
         }
     }

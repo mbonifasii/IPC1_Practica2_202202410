@@ -136,8 +136,6 @@ public class TripsGenerateTripView extends JFrame implements MouseListener {
         generatePanelTrip.setVisible(true);
     }
 
-
-
     @Override
     public void mouseClicked(MouseEvent e) {
         if(e.getSource() == btnGenerateTrip){
@@ -170,7 +168,9 @@ public class TripsGenerateTripView extends JFrame implements MouseListener {
                     0.0f,
                     0.0f,
                     "",
-                    ""
+                    "",
+                    600.0f,
+                    600.0f
             );
 
 

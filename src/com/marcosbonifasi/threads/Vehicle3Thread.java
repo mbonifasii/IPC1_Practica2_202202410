@@ -99,6 +99,7 @@ public class Vehicle3Thread extends Thread {
                 this.tripsTrackingView.highway3.repaint();
             }
         } catch (Exception e){
+            System.out.println("Something went wrong :(");
             System.out.println(e);
         }
     }
