@@ -1,9 +1,11 @@
 package com.marcosbonifasi.threads;
 
+import com.marcosbonifasi.Main;
 import com.marcosbonifasi.views.trips.TripsTrackingView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDateTime;
 
 public class Vehicle1Thread extends Thread {
 
@@ -93,8 +95,11 @@ public class Vehicle1Thread extends Thread {
                     this.tripsTrackingView.btnResumeVehicle1.setEnabled(false);
                     this.tripsTrackingView.btnResumeVehicle1.removeMouseListener(this.tripsTrackingView);
 
-                    JOptionPane.showMessageDialog(null, "Viaje finalizado :)");
+                    JOptionPane.showMessageDialog(null, "Viaje conductor 1 finalizado :)");
+                    this.trackingVehicle1Thread.trip.setFinalDatetime(LocalDateTime.now().toString());
                     this.tripsTrackingView.cleanVehicle1Info();
+                    Main.makeVehicleAvailable(this.trackingVehicle1Thread.trip.getVehicleName());
+                    Main.removeOnGoingTrip(this.trackingVehicle1Thread.trip);
                 }
                 if (this.tripsTrackingView.labelVehicle1.getX() <= 0 || this.tripsTrackingView.labelVehicle1.getX() >= 600) {
                     this.stopThread();

@@ -262,6 +262,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
         // Render first trip
         if(Main.getOnGoingTrips()[0] != null){
+            System.out.println("chale tilin");
 
             if(Main.getOnGoingTrips()[0].getxVehicle() == 600.0f){
                 btnInitDriver1.setEnabled(true);

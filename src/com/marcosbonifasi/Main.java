@@ -58,6 +58,10 @@ public class Main {
 
     }
 
+    public static void makeVehicleAvailable(String vehicleName){
+        vehiclesAvailable.add(Vehicle.getVehicleByName(vehicleName));
+    }
+
     private static void initVehicles(){
         for (int i = 0; i < Vehicle.getVehicles().length; i++) {
             vehiclesAvailable.add(new Vehicle(Vehicle.getVehicles()[i][0], Float.parseFloat(Vehicle.getVehicles()[i][1])));
@@ -92,6 +96,15 @@ public class Main {
             if(onGoingTrips[i] == null){
                 System.out.println("New trip added");
                 onGoingTrips[i] = trip;
+                break;
+            }
+        }
+    }
+
+    public static void removeOnGoingTrip(Trip trip){
+        for (int i = 0; i < onGoingTrips.length; i++) {
+            if(onGoingTrips[i].getId() == trip.getId()){
+                onGoingTrips[i] = null;
                 break;
             }
         }
@@ -269,13 +282,15 @@ public class Main {
         for (int i = 0; i < trips.size(); i++) {
             if(!trips.get(i).getStatus().equals("finalized")){
                 for (int j = 0; j < onGoingTrips.length; j++) {
-                    if(onGoingTrips[i] == null){
-                        onGoingTrips[i] = trips.get(i);
+                    if(onGoingTrips[j] == null){
+                        onGoingTrips[j] = trips.get(i);
+                        makeVehicleBusy(onGoingTrips[j].getVehicleName());
+                        counterTrips = onGoingTrips[j].getId(); // we initialize the trips counter
+                        break;
                     }
                 }
             }
         }
+
     }
-
-
 }

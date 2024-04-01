@@ -44,5 +44,18 @@ public class Vehicle implements Serializable {
     public void setGasoline(float gasoline) {
         this.gasoline = gasoline;
     }
+    
+    public static Vehicle getVehicleByName(String vehicleName){
+        Vehicle vehicle = null;
+
+        for (int i = 0; i < vehicles.length; i++) {
+            if(vehicles[i][0].equals(vehicleName)){
+                vehicle = new Vehicle(vehicleName, Float.parseFloat(vehicles[i][1]));
+                break;
+            }
+        }
+
+        return vehicle;
+    }
 
 }
