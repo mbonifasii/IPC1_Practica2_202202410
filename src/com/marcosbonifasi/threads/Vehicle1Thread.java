@@ -22,7 +22,6 @@ public class Vehicle1Thread extends Thread {
         this.xInfo= this.tripsTrackingView.labelCurrentInfo1.getX();
         this.yInfo= this.tripsTrackingView.labelCurrentInfo1.getY();
         this.trackingVehicle1Thread = trackingVehicle1Thread;
-        System.out.println("asdfasdfasdfas");
     }
 
     public void run(){

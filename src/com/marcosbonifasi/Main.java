@@ -291,5 +291,6 @@ public class Main {
             }
             counterTrips = trips.get(i).getId(); // we initialize the trips counter
         }
+
     }
 }

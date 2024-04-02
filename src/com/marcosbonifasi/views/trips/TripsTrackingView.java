@@ -116,7 +116,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
         // First highway
         // Carga la imagen
-        ImageIcon imgHighway1 = new ImageIcon(getClass().getResource("../../images/highway.jpeg"));
+        ImageIcon imgHighway1 = new ImageIcon(getClass().getResource("/highway.jpeg"));
         // Ajusta el tamaño de la imagen (puedes cambiar los valores según tus necesidades)
         Image imageDimensionHighway = imgHighway1.getImage().getScaledInstance(700, 80, Image.SCALE_SMOOTH);
         // Crea un nuevo ImageIcon con la imagen ajustada
@@ -158,7 +158,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
         // Second highway
         // Carga la imagen
-        ImageIcon imgHighway2 = new ImageIcon(getClass().getResource("../../images/highway.jpeg"));
+        ImageIcon imgHighway2 = new ImageIcon(getClass().getResource("/highway.jpeg"));
         // Ajusta el tamaño de la imagen (puedes cambiar los valores según tus necesidades)
         Image imageDimensionHighway2 = imgHighway2.getImage().getScaledInstance(700, 80, Image.SCALE_SMOOTH);
         // Crea un nuevo ImageIcon con la imagen ajustada
@@ -200,7 +200,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
         // Third highway
         // Carga la imagen
-        ImageIcon imgHighway3 = new ImageIcon(getClass().getResource("../../images/highway.jpeg"));
+        ImageIcon imgHighway3 = new ImageIcon(getClass().getResource("/highway.jpeg"));
         // Ajusta el tamaño de la imagen (puedes cambiar los valores según tus necesidades)
         Image imageDimensionHighway3 = imgHighway3.getImage().getScaledInstance(700, 80, Image.SCALE_SMOOTH);
         // Crea un nuevo ImageIcon con la imagen ajustada
@@ -242,7 +242,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
 
         // Carga la imagen
-        ImageIcon closeIcon = new ImageIcon(getClass().getResource("../../images/close.png"));
+        ImageIcon closeIcon = new ImageIcon(getClass().getResource("/close.png"));
         // Ajusta el tamaño de la imagen (puedes cambiar los valores según tus necesidades)
         Image imageDimension = closeIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         // Crea un nuevo ImageIcon con la imagen ajustada
@@ -316,7 +316,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             this.labelVehicle1 = new JLabel();
             this.labelVehicle1.setBounds((int) Math.floor(Main.getOnGoingTrips()[0].getxVehicle()), 30, 100, 50); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
             ImageIcon img1 = new ImageIcon(
-                getClass().getResource("../../images/" + selectedImageVehicle(Main.getOnGoingTrips()[0].getVehicleName()))
+                getClass().getResource("/" + selectedImageVehicle(Main.getOnGoingTrips()[0].getVehicleName()))
             );
             Image nuevo1 = img1.getImage().getScaledInstance(100, 80, Image.SCALE_DEFAULT);
             this.labelVehicle1.setHorizontalAlignment(SwingConstants.CENTER);

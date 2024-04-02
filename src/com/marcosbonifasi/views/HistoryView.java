@@ -70,7 +70,7 @@ public class HistoryView extends JFrame implements MouseListener {
         
         
         // Carga la imagen
-        ImageIcon closeIcon = new ImageIcon(getClass().getResource("../images/close.png"));
+        ImageIcon closeIcon = new ImageIcon(getClass().getResource("/close.png"));
         // Ajusta el tamaño de la imagen (puedes cambiar los valores según tus necesidades)
         Image imageDimension = closeIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         // Crea un nuevo ImageIcon con la imagen ajustada
