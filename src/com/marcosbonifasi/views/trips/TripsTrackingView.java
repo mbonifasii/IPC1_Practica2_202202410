@@ -110,7 +110,6 @@ public class TripsTrackingView extends JFrame implements MouseListener {
 
         tripTrackingPanel.add(btnInitAllDrivers);
 
-
         // First highway
         // Carga la imagen
         ImageIcon imgHighway1 = new ImageIcon(getClass().getResource("/highway.jpeg"));
