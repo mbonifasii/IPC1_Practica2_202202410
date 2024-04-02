@@ -105,11 +105,8 @@ public class TripsTrackingView extends JFrame implements MouseListener {
         btnInitAllDrivers.setFont(new Font(btnInitAllDrivers.getFont().getFontName(), Font.BOLD, 13));
         btnInitAllDrivers.setOpaque(true);
         btnInitAllDrivers.setBorderPainted(false);
-        btnInitAllDrivers.setEnabled(false);
-        if(!Main.driversAvailable() || Main.getRoutes().isEmpty())
-            btnInitAllDrivers.setEnabled(false);
-        else
-            btnInitAllDrivers.addMouseListener(this);
+        btnInitAllDrivers.setEnabled(true);
+        btnInitAllDrivers.addMouseListener(this);
 
         tripTrackingPanel.add(btnInitAllDrivers);
 
