@@ -402,7 +402,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             labelVehicle2 = new JLabel();
             labelVehicle2.setBounds((int) Math.floor(Main.getOnGoingTrips()[1].getxVehicle()), 30, 100, 50); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
             ImageIcon img2 = new ImageIcon(
-                    getClass().getResource("../../images/" + selectedImageVehicle(Main.getOnGoingTrips()[1].getVehicle().getName()))
+                    getClass().getResource("/" + selectedImageVehicle(Main.getOnGoingTrips()[1].getVehicle().getName()))
             );
             Image nuevo2 = img2.getImage().getScaledInstance(100, 80, Image.SCALE_DEFAULT);
             labelVehicle2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -487,7 +487,7 @@ public class TripsTrackingView extends JFrame implements MouseListener {
             labelVehicle3 = new JLabel();
             labelVehicle3.setBounds((int) Math.floor(Main.getOnGoingTrips()[2].getxVehicle()), 30, 100, 50); // (x, y, width, height) aqui el ancho y la altura deben ser las mismas que cuando redimensionamos
             ImageIcon img3 = new ImageIcon(
-                    getClass().getResource("../../images/" + selectedImageVehicle(Main.getOnGoingTrips()[2].getVehicle().getName()))
+                    getClass().getResource("/" + selectedImageVehicle(Main.getOnGoingTrips()[2].getVehicle().getName()))
             );
             Image nuevo3 = img3.getImage().getScaledInstance(100, 80, Image.SCALE_DEFAULT);
             labelVehicle3.setHorizontalAlignment(SwingConstants.CENTER);
